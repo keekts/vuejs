@@ -20,3 +20,8 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+
+notify
+http://vue-notification.yev.io/?ref=madewithvuejs.com
+https://ankurk91.github.io/vue-toast-notification/
