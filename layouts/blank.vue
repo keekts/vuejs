@@ -1,10 +1,10 @@
 <template>
   <v-app dark>
-    <v-main>
+    <v-content>
       <v-container>
         <nuxt />
       </v-container>
-    </v-main>
+    </v-content>
 
     <v-footer :fixed="fixed" app>
       <span>&copy; 2019</span>
@@ -37,6 +37,5 @@ export default {
       title: "Vuetify.js",
     };
   },
-  
 };
 </script>
