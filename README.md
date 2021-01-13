@@ -25,3 +25,8 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 notify
 http://vue-notification.yev.io/?ref=madewithvuejs.com
 https://ankurk91.github.io/vue-toast-notification/
+
+https://vuejsexamples.com/yet-another-toast-notification-plugin-for-vue-js/
+
+slide div
+https://vuejsexamples.com/a-pure-vue-ssr-friendly-horizontal-list-implementation/
