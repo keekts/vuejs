@@ -30,3 +30,8 @@ https://vuejsexamples.com/yet-another-toast-notification-plugin-for-vue-js/
 
 slide div
 https://vuejsexamples.com/a-pure-vue-ssr-friendly-horizontal-list-implementation/
+
+ui
+https://www.pinterest.com/pin/528328600042259535/
+https://dribbble.com/shots/2943967-Mibrary-Online-Library-Concept/attachments/2943967?mode=media
+https://www.pinterest.com/pin/516788125962164332/
