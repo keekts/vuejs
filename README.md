@@ -36,3 +36,6 @@ ui
 https://www.pinterest.com/pin/528328600042259535/
 https://dribbble.com/shots/2943967-Mibrary-Online-Library-Concept/attachments/2943967?mode=media
 https://www.pinterest.com/pin/516788125962164332/
+
+fix run error
+https://github.com/PatrickJS/angular-starter/issues/782

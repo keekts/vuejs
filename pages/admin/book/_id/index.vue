@@ -1,8 +1,6 @@
 <template>
   <div>
-    <v-btn @click="$router.back()" icon>
-      <v-icon>mdi-arrow-left</v-icon>
-    </v-btn>
+  
     <v-container grid-list-xs>
       <v-row>
         <v-col md="2">
