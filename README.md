@@ -27,6 +27,7 @@ http://vue-notification.yev.io/?ref=madewithvuejs.com
 https://ankurk91.github.io/vue-toast-notification/
 
 https://vuejsexamples.com/yet-another-toast-notification-plugin-for-vue-js/
+https://github.com/Maronato/vue-toastification
 
 slide div
 https://vuejsexamples.com/a-pure-vue-ssr-friendly-horizontal-list-implementation/
