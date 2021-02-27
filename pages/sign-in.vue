@@ -20,12 +20,12 @@
         <v-btn color="primary" height="60" rounded large block>ເຂົ້າ​ສູ່​ລະ​ບົບ</v-btn>
       </v-col>
       <v-col md="6" cols="12"s>
-        <v-layout justify-center align-content-center fill-height wrap>
+        <v-layout justify-center  fill-height wrap>
           <div style="width:100%" class="text-center">
             <h1 class="my-6">ລົງທະບຽນ</h1>
             <div style="max-width:300px;margin:0 auto">
               <v-btn
-                color="primary lighten-2"
+                color="primary"
                 rounded
                 large
                 elevation="0"
