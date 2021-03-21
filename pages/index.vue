@@ -26,7 +26,7 @@
                   <v-rating
                     color="yellow darken-3"
                     background-color="grey darken-1"
-                    :value="5"
+                    :value="5" readonly
                     medium
                   ></v-rating>
                   <v-spacer></v-spacer>
