@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 import config from './config.env.js'
+import i18n from './config/i18n'
 
 export default {
   mode: 'spa',
@@ -128,6 +129,24 @@ export default {
   /*
    ** Build configuration
    */
+   buildModules: [
+    /* other modules */
+    [
+     'nuxt-i18n',
+     {
+       vueI18nLoader: true,
+       defaultLocale: 'lo',
+        locales: [
+         {
+            code: 'lo',
+            name: 'LAO'
+         },
+         
+       ],
+       vueI18n: i18n
+     }
+    ]
+   ],
   build: {
     /*
      ** You can extend webpack config here

@@ -39,3 +39,6 @@ https://www.pinterest.com/pin/516788125962164332/
 
 fix run error
 https://github.com/PatrickJS/angular-starter/issues/782
+
+
+https://phrase.com/blog/posts/nuxt-js-tutorial-i18n/

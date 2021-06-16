@@ -6,8 +6,8 @@ let mode = process.env.NODE_ENV || 'dev'
 const config = {
   development: {
     NODE_ENV: 'development',
-    BASE_URL: 'http://192.168.2.72:8888/bookstore-ci/',
-    API_URL: 'http://192.168.2.72:8888/bookstore-ci/api/v1/'
+    BASE_URL: 'http://localhost/',
+    API_URL: 'http://localhost/api/v1/'
   },
   demo: {
     NODE_ENV: 'demo',
