@@ -4,7 +4,7 @@
     v-on="$listeners"
     :items="items"
     v-model="bookType"
-    label="Book Type"
+    :label="$t('book_type')"
     item-text="type_name"
     item-value="id"
   ></v-select>

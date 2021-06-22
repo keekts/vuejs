@@ -8,7 +8,7 @@
   >
     <v-card>
       <v-card-title primary-title>
-        {{ title }}
+        {{ $t(title) }}
         <v-spacer></v-spacer>
         <v-btn @click="dialog = false" icon>
           <v-icon>mdi-close</v-icon>
@@ -19,8 +19,8 @@
       <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn @click="cancel" color="error" text>{{ cancelText }}</v-btn>
-        <v-btn @click="ok" color="primary" depressed>{{ okText }}</v-btn>
+        <v-btn @click="cancel" color="error" text>{{ $t(cancelText) }}</v-btn>
+        <v-btn @click="ok" color="primary" depressed>{{ $t(okText) }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -31,7 +31,7 @@ export default {
   inheritAttrs: false,
   props: {
     value: Boolean,
-    title: { type: String, default: "Confirm" },
+    title: { type: String, default: "confirm" },
     cancelText: { type: String, default: "cancel" },
     okText: { type: String, default: "ok" }
   },

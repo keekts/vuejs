@@ -9,7 +9,7 @@
           <v-btn @click="$router.back()" icon>
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
-          Book type
+            {{$t('book_type')}}
         </h3>
       </v-layout>
       <!-- <v-skeleton-loader v-show="loading"
@@ -43,7 +43,7 @@
     >
       <v-card>
         <v-card-title primary-title>
-          Add
+          {{ $t("add") }}
           <v-spacer></v-spacer>
           <v-btn @click="dialogAdd = false" icon>
             <v-icon>mdi-close</v-icon>
@@ -54,21 +54,22 @@
           <v-text-field
             name="name"
             v-model="frm.type_name"
-            label="Type name"
+            :label="$t('book_type')"
             id="id"
             @keyup.enter="add"
           ></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="dialogAdd = false" text>Cancel</v-btn>
+          <v-btn @click="dialogAdd = false" text> {{ $t("cancel") }} </v-btn>
           <v-btn
             @click.prevent="add()"
             :disabled="!frm.type_name.trim()"
             color="primary"
             text
-            >ok</v-btn
           >
+            {{ $t("ok") }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -81,7 +82,7 @@
     >
       <v-card v-if="current">
         <v-card-title primary-title>
-          Edit
+          {{ $t("edit") }}
           <v-spacer></v-spacer>
           <v-btn @click="dialogEdit = false" icon>
             <v-icon>mdi-close</v-icon>
@@ -89,29 +90,30 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-text-field label="Name" v-model="current.type_name"></v-text-field>
+          <v-text-field :label="$t('book_type')" v-model="current.type_name"></v-text-field>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn @click="dialogEdit = false" text>
-            cancel
+            {{ $t("cancel") }}
           </v-btn>
           <v-btn
             @click.prevent="updateAction()"
             :disabled="!current.type_name.trim()"
             color="primary"
             text
-            >ok</v-btn
           >
+            {{ $t("ok") }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <confirm-box
-      title="Delete Book type"
+      title="delete"
       v-model="dialogDel"
-      okText="Delete"
+      okText="delete"
       @ok="deleteAction"
     >
       <v-card-text v-if="current" class="mt-3">
@@ -124,8 +126,9 @@
 <script>
 import ConfirmBox from "~/components/ConfirmBox";
 export default {
+  layout: 'admin',
   components: {
-    ConfirmBox
+    ConfirmBox,
   },
   data() {
     return {
@@ -135,14 +138,14 @@ export default {
       loading: false,
       items: [],
       headers: [
-        { value: "id", text: "ID" },
-        { value: "type_name", text: "Name Type" },
-        { value: "action", text: "Action" }
+        // { value: "id", text: "ID" },
+        { value: "type_name", text: this.$t("book_type") },
+        { value: "action", text: this.$t("option") },
       ],
       frm: {
-        type_name: ""
+        type_name: "",
       },
-      current: null
+      current: null,
     };
   },
   mounted() {
@@ -177,7 +180,7 @@ export default {
         this.items.push(rs.data.booktype);
         this.frm.type_name = "";
         this.dialogAdd = false;
-        this.$toast.success(`saved`);
+        this.$toast.success(this.$t('saved'));
       } catch (error) {
         this.$toast.error(`${error}`);
       }
@@ -186,10 +189,10 @@ export default {
       try {
         let rs = await this.$axios.put("booktype", {
           ...this.current,
-          id: this.current.id
+          id: this.current.id,
         });
         this.dialogEdit = false;
-        this.$toast.success(`saved`);
+        this.$toast.success(this.$t('saved'));
       } catch (error) {
         this.$toast.error(`${error}`);
       }
@@ -203,8 +206,8 @@ export default {
       } catch (error) {
         this.$toast.error(`${error}`);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

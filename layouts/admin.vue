@@ -5,7 +5,12 @@
         <div>
           <v-list-item>
             <v-list-item-title class="text-center">
-              <div>The <span class="grey--text">Book</span></div>
+             <v-avatar
+               size="48" class="mt-4"
+               tile
+             >
+               <img src="@/static/icon.png" alt="alt" />
+             </v-avatar>
             </v-list-item-title>
           </v-list-item>
         </div>
@@ -46,11 +51,11 @@
     </v-navigation-drawer>
 
     <v-app-bar flat app fixed color="white">
-      <v-toolbar-title v-text="'Dashboard'"></v-toolbar-title>
+      <v-toolbar-title v-text="$t('dashboard')"></v-toolbar-title>
       <v-spacer></v-spacer>
       <div>
         <v-text-field
-          placeholder="Search"
+          :placeholder="$t('search')"
           filled
           small
           solo-inverted
@@ -77,14 +82,14 @@ export default {
   data() {
     return {
       items: [
-        { link: "", icon: "mdi-apps", title: "Dasboard" },
+        { link: "dasboard", icon: "mdi-apps", title: this.$t("dasboard") },
         {
-          link: "workspace",
-          icon: "mdi-bag-personal-outline",
-          title: "Workspace",
+          link: "admin/book",
+          icon: "mdi-book",
+          title: this.$t("book"),
         },
-        { link: "report", icon: "mdi-equalizer-outline", title: "Report" },
-        { link: "setting", icon: "mdi-cog-outline", title: "Setting" },
+        { link: "report", icon: "mdi-equalizer-outline", title: this.$t("report") },
+        { link: "setting", icon: "mdi-cog-outline", title: this.$t("setting") },
       ],
     };
   },
