@@ -35,8 +35,8 @@
 
       <v-row>
         <v-col>
-          <v-btn @click="$router.back()">{{ $t("cancel") }}</v-btn>
-          <v-btn @click.prevent="saveAction" color="primary">
+          <v-btn @click="$router.back()" color="error" depressed>{{ $t("cancel") }}</v-btn>
+          <v-btn @click.prevent="saveAction" depressed color="primary">
             {{ $t("save") }}
           </v-btn>
         </v-col>

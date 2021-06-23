@@ -3,7 +3,8 @@
     <v-container grid-list-xs>
       <v-row v-if="book">
         <v-col md="2">
-          <v-img :src="path + book.cover"></v-img>
+          <v-img :src="path + book.cover" v-if="book.cover"></v-img>
+          <div v-else>{{$t('no_image')}}</div>
           <div class="text-center">
             <label>
               <v-icon for="file" color="success" class="my-2">
@@ -29,7 +30,8 @@
               <v-list-item-subtitle
                 v-html="book.description"
               ></v-list-item-subtitle>
-              <v-list-item-subtitle>LAK {{ book.price }}</v-list-item-subtitle>
+              <v-list-item-subtitle>LAK {{ toForrmat(book.price) }} {{$t('sell')}}</v-list-item-subtitle>
+              <v-list-item-subtitle>LAK {{ toForrmat(book.price_cost) }} {{$t('buy')}}</v-list-item-subtitle>
               <div class="py-4">
                 <v-chip-group
                   active-class="primary--text"
@@ -78,6 +80,9 @@ export default {
     this.getId();
   },
   methods: {
+    toForrmat(n){
+      return Number(n).toLocaleString()
+    },
     async getId() {
       try {
         let rs = await this.$axios.get("book", {

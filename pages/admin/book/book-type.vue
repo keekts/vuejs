@@ -204,7 +204,7 @@ export default {
         this.items.splice(index, 1);
         this.$toast.success(rs.data.message);
       } catch (error) {
-        this.$toast.error(`${error}`);
+        this.$toast.error(this.$t('cannot_delete'));
       }
     },
   },

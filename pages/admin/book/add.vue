@@ -90,6 +90,7 @@ export default {
         data.append('file', this.file);
         let rs = await this.$axios.post('book',data);
         this.$toast.success(this.$t('saved'));
+        this.$router.back()
       } catch (error) {
         this.$toast.error(`${error}`);
       }

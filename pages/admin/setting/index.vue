@@ -1,20 +1,111 @@
 <template>
-  <div>
-      <v-container grid-list-xs>
-          <h2>Setting</h2>
-          <v-tabs>
-              <v-tab to="/admin/setting/">Genneral</v-tab>
-              <v-tab to="/admin/setting/order">Order</v-tab>
-          </v-tabs>
-          <nuxt-child />
-      </v-container>
-  </div>
+<div>
+  <v-container grid-list-xs>
+    <h2 class="mb-4">{{$t('sys')}}</h2>
+    <v-row>
+      <v-col>
+        <card-box title="10" :desc="$t('emp')" icon="mdi-account" avatarColor="primary" to="/admin/emp"></card-box>
+      </v-col>
+      <v-col>
+        <card-box title="20" :desc="$t('porder')" icon="mdi-file-upload-outline" avatarColor="blue" to="/admin/porder"></card-box>
+      </v-col>
+      <v-col>
+        <card-box title="12" :desc="$t('import')" icon="mdi-file-download-outline" avatarColor="indigo" to="/admin/pimport"></card-box>
+      </v-col>
+      <v-col>
+        <card-box title="15" :desc="$t('supplier')" icon="mdi-account-group-outline" avatarColor="teal" to="/admin/pimport"></card-box>
+      </v-col>
+    </v-row>
+
+    <v-row class="mt-4">
+      <v-col>
+        <v-layout wrap>
+          <h3 class="grey--text text--darken-3">{{$t('recent_porder')}}</h3>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>mdi-arrow-right</v-icon>
+          </v-btn>
+        </v-layout>
+
+        <v-list class="pa-0">
+          <template v-for="(item, index) in itemsRecents">
+            <v-list-item :key="index" class="px-0">
+              <v-list-item-avatar size="48" color="grey lighten-3">
+                <h3 class="title" color="grey">{{ item.first[0] }}</h3>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ item.first }}
+                </v-list-item-title>
+                <!-- <v-list-item-subtitle>
+                  {{ item.subtitle }}
+                </v-list-item-subtitle> -->
+              </v-list-item-content>
+              <v-list-item-action>
+                <small class="grey--text">
+                  {{item.purchaser_date}}
+                </small>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+        </v-list>
+      </v-col>
+      <v-col>
+        <v-card>
+          <BarChart :data="dataChart" v-if="dataChart" style="max-height:300px" :options="chartOption" />
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+</div>
 </template>
 
 <script>
+import CardBox from "~/components/CardBox";
+import CardDashboard from "~/components/CardDashboard";
+import BarChart from "~/components/chart/BarChart.js";
+import chartOption from "~/mixins/chartOption";
 export default {
-
-}
+  layout: "admin",
+  components: {
+    CardBox,
+    CardDashboard,
+    BarChart
+  },
+  mixins:[chartOption],
+  data() {
+    return {
+      dataChart: {
+        labels: ['2020', '2021', '2022'],
+        datasets: [{
+          label: this.$t('porder'),
+          backgroundColor: ['#F08080', '#6495ED', '#CCCCFF'],
+          data: [1, 3, 6]
+        }]
+      },
+      itemsRecents: [{
+          icon: "mdi-folder",
+          iconColor: "green",
+          first: "on",
+          subtitle: "image ...",
+          purchaser_date: "10MB"
+        },
+        {
+          icon: "mdi-folder",
+          iconColor: "blue",
+          first: "Poukky",
+          purchaser_date: "10MB"
+        },
+        {
+          icon: "mdi-folder",
+          iconColor: "blue",
+          first: "Oravane",
+          purchaser_date: "10MB"
+        }
+      ]
+    }
+  },
+};
 </script>
 
 <style>

@@ -1,0 +1,215 @@
+<template>
+<div>
+  <v-container grid-list-xs>
+    <v-row>
+
+      <v-col>
+        <CardBox avatarColor="primary" titleClass="primary--text" icon="mdi-cart-plus" :desc="$t('sell')" title="" to="admin/sell" fileSize="" color="grey lighten-4"></CardBox>
+      </v-col>
+      <v-col>
+        <CardBox avatarColor="primary" titleClass="primary--text" icon="mdi-cart-outline" :desc="$t('order_list')" :title="`${books}`" to="admin/order" fileSize="" color="grey lighten-4" flat></CardBox>
+      </v-col>
+      <v-col>
+        <CardBox avatarColor="amber" titleClass="amber--text" icon="mdi-book" :desc="$t('book')" :title="`${books}`" to="admin/book" fileSize="" color="grey lighten-4" flat />
+      </v-col>
+      <v-col>
+        <CardBox :desc="$t('customer')" :title="`${customers}`" to="admin/customer" icon="mdi-account" fileSize="" color="grey lighten-4" flat />
+      </v-col>
+      <!-- <v-col>
+        <CardBox avatarColor="indigo" titleClass="indigo--text" icon="mdi-file" :desc="$t('porder')" :title="`${books}`" to="admin/porder" fileSize="" color="grey lighten-4" flat></CardBox>
+      </v-col>
+      <v-col md="3">
+        <CardDashboard avatarColor="blue" titleClass="blue--text" icon="mdi-file" fileCount="" :title="$t('import')" to="admin/pimport" fileSize="" color="grey lighten-4" flat></CardDashboard>
+      </v-col> -->
+    </v-row>
+
+    <v-row class="my-4">
+      <v-col>
+        <v-layout wrap>
+          <h3 class="grey--text text--darken-3">{{$t('last_order')}}</h3>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>mdi-arrow-right</v-icon>
+          </v-btn>
+        </v-layout>
+
+        <v-list class="pa-0">
+          <template v-for="(item, index) in itemsRecents">
+            <v-list-item :key="index" class="px-0">
+              <v-list-item-avatar size="48" color="grey lighten-3">
+                <h3 class="title" color="grey">{{ item.first[0] }}</h3>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ item.first }}
+                </v-list-item-title>
+                <!-- <v-list-item-subtitle>
+                  {{ item.subtitle }}
+                </v-list-item-subtitle> -->
+              </v-list-item-content>
+              <v-list-item-action>
+                <small class="grey--text">
+                  {{item.purchaser_date}}
+                </small>
+              </v-list-item-action>
+            </v-list-item>
+          </template>
+        </v-list>
+      </v-col>
+      <v-col>
+        <v-card>
+
+          <BarChart :data="dataChart" v-if="dataChart" style="max-height:300px" :options="chartOption" />
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row class="my-4">
+      <v-col>
+        <v-card>
+          <v-card-title primary-title>
+            {{$t('book_row_qty')}}
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-data-table :headers="headers" :items="bookItems" hide-default-footer loading="true">
+            <template v-slot:item.cover="{item}">
+              <div>
+                <v-avatar size="36" color="grey" v-if="item.cover">
+                  <v-img :src="path+item.cover"></v-img>
+                </v-avatar>
+                <v-icon v-else class="mdi-36px">mdi-book</v-icon>
+              </div>
+            </template>
+            <template v-slot:item.price="{item}">
+              <b>
+                {{toFormatNumber(item.price)}}
+              </b>
+            </template>
+
+          </v-data-table>
+        </v-card>
+
+      </v-col>
+      <v-col>
+        <v-card outlined>
+          <v-card-title primary-title>
+            {{$t('book')}}
+          </v-card-title>
+          <v-card-text>
+            <DoughnutChart :data="dataChart" v-if="dataChart" :options="chartOption2" style="max-height:270px" />
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+    </v-row>
+
+  </v-container>
+</div>
+</template>
+
+<script>
+import CardBox from "~/components/CardBox";
+import CardDashboard from "~/components/CardDashboard";
+import BarChart from "~/components/chart/BarChart.js";
+import DoughnutChart from "~/components/chart/DoughnutChart.js";
+import LineChart from "~/components/chart/LineChart.js";
+import chartOption from "~/mixins/chartOption";
+export default {
+  layout: 'admin',
+  components: {
+    CardDashboard,
+    CardBox,
+    BarChart,
+    DoughnutChart,
+    LineChart
+  },
+  mixins: [chartOption],
+  data() {
+    return {
+      path: process.env.BASE_URL,
+      bookItems: [],
+      users: 0,
+      books: 0,
+      customers: 0,
+      chartOption2: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          position: 'right',
+          labels: {
+            fontFamily: 'Bouasavanh',
+          }
+        },
+      },
+      dataChart: {
+        labels: ['2020', '2021', '2022'],
+        datasets: [{
+          label: this.$t('top_order'),
+          backgroundColor: ['#F08080', '#6495ED', '#CCCCFF'],
+          data: [1, 3, 6]
+        }]
+      },
+      itemsRecents: [{
+          first: "Phon",
+          subtitle: "image ...",
+          purchaser_date: "10MB"
+        },
+        {
+          icon: "mdi-folder",
+          iconColor: "blue",
+          first: "Son",
+          purchaser_date: "10MB"
+        },
+        {
+          first: "Poukky",
+          purchaser_date: "10MB"
+        }
+      ],
+      headers: [{
+          text: this.$t('image'),
+          value: 'cover'
+        },
+        {
+          text: this.$t('name'),
+          value: 'name'
+        },
+        {
+          text: this.$t('price'),
+          value: 'price'
+        },
+        {
+          text: this.$t('qty'),
+          value: 'qty'
+        }
+      ]
+    }
+  },
+  mounted() {
+    this.getData()
+  },
+  methods: {
+    toFormatNumber(n) {
+      return Number(n).toLocaleString()
+    },
+    async getData() {
+      try {
+        let rs = await this.$axios.get('dashboard');
+        let book = await this.$axios.get('book/qtyRow', {
+          params: {
+            limit: 6
+          }
+        });
+        this.bookItems = book.data.books
+        this.users = rs.data.users
+        this.books = rs.data.books
+      } catch (error) {
+
+      }
+    }
+  },
+}
+</script>
+
+<style>
+
+</style>
