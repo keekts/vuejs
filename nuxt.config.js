@@ -74,26 +74,28 @@ export default {
   auth: {
     strategies: {
       local: {
+        // refresh_token: true,
+        logout: false,
+        property: 'user',
         token: {
-          maxAge: 30 * 24 * 60 * 60
-        },
-        user: {
-          property: 'user',
-          // autoFetch: true
+          property: 'token',
         },
         endpoints: {
           login: {
             url: config['API_URL'] + 'auth',
-            method: 'post'
+            method: 'post',
+            propertyName: 'token',
+            maxAge: 30 * 24 * 60 * 60
           },
           // refresh: { url: '/api/auth/refresh', method: 'post' },
           user: {
             url: config['API_URL'] + 'auth',
-            method: 'get'
+            method: 'get',
+            autoFetch: true,
           },
           // logout: { url: '/api/auth/logout', method: 'post' }
         },
-        // autoLogout: false
+        autoLogout: false
       }
     },
     redirect: {

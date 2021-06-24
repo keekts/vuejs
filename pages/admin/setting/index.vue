@@ -67,6 +67,7 @@ import BarChart from "~/components/chart/BarChart.js";
 import chartOption from "~/mixins/chartOption";
 export default {
   layout: "admin",
+  middleware: 'admin',
   components: {
     CardBox,
     CardDashboard,

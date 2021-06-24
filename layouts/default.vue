@@ -14,7 +14,7 @@
             </nuxt-link>
             <div class="ml-3" style="width:100%;max-width: 400px">
               <v-text-field
-                placeholder="Search"
+                :placeholder="$t('search')"
                 dense
                 filled
                 flat
