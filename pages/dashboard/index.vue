@@ -200,10 +200,10 @@ export default {
           }
         });
         this.bookItems = book.data.books
+        this.customers = rs.data.customers
         this.users = rs.data.users
         this.books = rs.data.books
       } catch (error) {
-
       }
     }
   },

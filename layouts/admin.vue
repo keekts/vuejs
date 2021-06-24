@@ -49,7 +49,7 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <div>
-      <v-text-field :placeholder="$t('search')" filled small solo-inverted hide-details flat dense prepend-inner-icon="mdi-magnify"></v-text-field>
+      <v-text-field :placeholder="$t('search')" @keyup="$store.commit('search', $event.target.value)" filled small solo-inverted hide-details flat dense prepend-inner-icon="mdi-magnify"></v-text-field>
     </div>
   </v-app-bar>
 

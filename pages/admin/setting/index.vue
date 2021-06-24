@@ -4,16 +4,16 @@
     <h2 class="mb-4">{{$t('sys')}}</h2>
     <v-row>
       <v-col>
-        <card-box title="10" :desc="$t('emp')" icon="mdi-account" avatarColor="primary" to="/admin/emp"></card-box>
+        <card-box :title="`${users}`" :desc="$t('emp')" icon="mdi-account" avatarColor="primary" to="/admin/emp"></card-box>
       </v-col>
       <v-col>
-        <card-box title="20" :desc="$t('porder')" icon="mdi-file-upload-outline" avatarColor="blue" to="/admin/porder"></card-box>
+        <card-box :title="`${porders}`" :desc="$t('porder')" icon="mdi-file-upload-outline" avatarColor="blue" to="/admin/porder"></card-box>
       </v-col>
       <v-col>
-        <card-box title="12" :desc="$t('import')" icon="mdi-file-download-outline" avatarColor="indigo" to="/admin/pimport"></card-box>
+        <card-box :title="`${imports}`" :desc="$t('import')" icon="mdi-file-download-outline" avatarColor="indigo" to="/admin/pimport"></card-box>
       </v-col>
       <v-col>
-        <card-box title="15" :desc="$t('supplier')" icon="mdi-account-group-outline" avatarColor="teal" to="/admin/pimport"></card-box>
+        <card-box :title="`${suppliers}`" :desc="$t('supplier')" icon="mdi-account-group-outline" avatarColor="teal" to="/admin/supplier"></card-box>
       </v-col>
     </v-row>
 
@@ -75,6 +75,10 @@ export default {
   mixins:[chartOption],
   data() {
     return {
+      users:0,
+      porders:0,
+      imports:0,
+      suppliers:0,
       dataChart: {
         labels: ['2020', '2021', '2022'],
         datasets: [{
@@ -103,6 +107,22 @@ export default {
           purchaser_date: "10MB"
         }
       ]
+    }
+  },
+  mounted() {
+    this.getData()
+  },
+  methods: {
+    async getData() {
+      try {
+        let rs = await this.$axios.get('setting');
+        
+        this.users = rs.data.users
+        this.imports = rs.data.imports
+        this.porders = rs.data.porders
+        this.suppliers = rs.data.suppliers
+      } catch (error) {
+      }
     }
   },
 };

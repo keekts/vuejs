@@ -108,18 +108,32 @@ export default {
         this.$toast.success(this.$t('success'))
         this.del = false
         let index = this.users.indexOf(this.user)
-        this.users.splice(index,1)
+        this.users.splice(index, 1)
       } catch (error) {
-         this.$toast.error(this.$t('cannot_delete'));
+        this.$toast.error(this.$t('cannot_delete'));
       }
     },
     async getData() {
       try {
-        let rs = await this.$axios.get('user')
+        let rs = await this.$axios.get('user', {
+          params: {
+            search :this.search
+          }
+        })
         this.users = rs.data.users
       } catch (error) {
 
       }
+    }
+  },
+  computed: {
+    search() {
+      return this.$store.state.search
+    }
+  },
+  watch: {
+    search(v) {
+      this.getData()
     }
   },
 }

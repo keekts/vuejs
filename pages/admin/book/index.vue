@@ -5,7 +5,7 @@
       <v-tab to="/admin/book">{{ $t("book") }}</v-tab>
       <v-tab to="/admin/book/book-type">{{ $t("book_type") }}</v-tab>
     </v-tabs>
-    <!-- <v-progress-linear :indeterminate="true"></v-progress-linear> -->
+    <v-progress-linear :indeterminate="true" v-show="searching"></v-progress-linear>
     <v-layout row wrap>
       <template v-for="(item, index) in books">
         <v-flex :key="index" sm12 md6>
@@ -16,12 +16,12 @@
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
-               <h3> {{ item.name }}</h3>
+                <h3> {{ item.name }}</h3>
               </v-list-item-title>
               <v-list-item-title>
-              <h5> 
-                <b>{{$t('qty')}}  {{ toForrmat(item.qty || 0) }}</b>
-              </h5>
+                <h5>
+                  <b>{{$t('qty')}} {{ toForrmat(item.qty || 0) }}</b>
+                </h5>
               </v-list-item-title>
               <v-list-item-subtitle v-html="item.description"></v-list-item-subtitle>
               <v-list-item-subtitle class="primary--text"><b>LAK {{ toForrmat(item.price) }}</b> {{$t('sell')}}</v-list-item-subtitle>
@@ -55,9 +55,10 @@ export default {
   data() {
     return {
       page: 1,
-      limit:10,
-      total:0,
-      pageTotal:0,
+      limit: 10,
+      total: 0,
+      pageTotal: 0,
+      searching:false,
       books: [],
       path: process.env.BASE_URL,
       headers: [{
@@ -75,25 +76,38 @@ export default {
     this.getData();
   },
   methods: {
-    toForrmat(n){
+    toForrmat(n) {
       return Number(n).toLocaleString()
     },
     async getData() {
       try {
+        this.searching = true
         let rs = await this.$axios.get("book", {
           params: {
             limit: this.limit,
-            offset: (this.page - 1) * this.limit
+            offset: (this.page - 1) * this.limit,
+            search:this.search
           }
         });
         this.books = rs.data.results;
         this.pageTotal = Math.ceil(rs.data.total / this.limit)
+        this.searching = false
       } catch (error) {
         this.$toast.error(this.$t('fail'))
+        this.searching = false
       }
     },
   },
-  computed: {},
+  computed: {
+    search() {
+      return this.$store.state.search
+    }
+  },
+  watch: {
+    search(v) {
+      this.getData()
+    }
+  },
 };
 </script>
 
