@@ -7,7 +7,16 @@
             <h5>{{ $t("porder") }}</h5>
 
             <v-spacer></v-spacer>
-
+            <v-btn
+              color="primary"
+              nuxt
+              link
+              :to="`/admin/porder/${$route.params.id}/pimport`"
+              text
+            >
+              <v-icon>mdi-archive-arrow-down-outline</v-icon> &nbsp;
+              {{ $t("import") }}
+            </v-btn>
             <v-btn
               color="primary"
               nuxt

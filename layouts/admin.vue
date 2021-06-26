@@ -79,7 +79,8 @@
 
 <script>
 export default {
-  name:'admin',
+  name: "admin",
+  middleware: "authenticated",
   data() {
     return {
       items: [

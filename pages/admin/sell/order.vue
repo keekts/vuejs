@@ -1,13 +1,11 @@
 <template>
-<div></div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  layout: 'admin'
-}
+  layout: "admin",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

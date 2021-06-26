@@ -24,7 +24,7 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-btn @click="add=true" color="primary" absolute bottom right fab>
+  <v-btn @click="add=true" color="primary" fixed bottom right fab>
     <v-icon>mdi-plus</v-icon>
   </v-btn>
 

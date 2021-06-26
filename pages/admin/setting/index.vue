@@ -26,24 +26,24 @@
             <v-icon>mdi-arrow-right</v-icon>
           </v-btn>
         </v-layout>
-
-        <v-list class="pa-0">
-          <template v-for="(item, index) in itemsRecents">
-            <v-list-item :key="index" class="px-0">
+        <v-divider></v-divider>
+       <v-list class="pa-0">
+          <template v-for="(item, index) in lastPorders">
+            <v-list-item :to="`/admin/porder/${item.id}`" :key="index" class="px-0">
               <v-list-item-avatar size="48" color="grey lighten-3">
-                <h3 class="title" color="grey">{{ item.first[0] }}</h3>
+                <h3 class="title" color="grey">{{ item.first[0].toUpperCase() }}</h3>
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title>
                   {{ item.first }}
                 </v-list-item-title>
-                <!-- <v-list-item-subtitle>
-                  {{ item.subtitle }}
-                </v-list-item-subtitle> -->
+                <v-list-item-subtitle>
+                  ID: {{ item.id }}
+                </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <small class="grey--text">
-                  {{item.purchaser_date}}
+                  {{formatDate(item.purchaser_date)}}
                 </small>
               </v-list-item-action>
             </v-list-item>
@@ -88,35 +88,26 @@ export default {
           data: [1, 3, 6]
         }]
       },
-      itemsRecents: [{
-          icon: "mdi-folder",
-          iconColor: "green",
-          first: "on",
-          subtitle: "image ...",
-          purchaser_date: "10MB"
-        },
-        {
-          icon: "mdi-folder",
-          iconColor: "blue",
-          first: "Poukky",
-          purchaser_date: "10MB"
-        },
-        {
-          icon: "mdi-folder",
-          iconColor: "blue",
-          first: "Oravane",
-          purchaser_date: "10MB"
-        }
-      ]
+      lastPorders: []
     }
   },
   mounted() {
     this.getData()
   },
   methods: {
+    formatDate(d){
+      return new Date(d).toLocaleDateString()
+    },
     async getData() {
       try {
         let rs = await this.$axios.get('setting');
+
+        let reqPorder = await this.$axios.get('porder', {
+          params: {
+            limit: 4
+          }
+        });
+        this.lastPorders  =reqPorder.data.porders
         
         this.users = rs.data.users
         this.imports = rs.data.imports

@@ -52,6 +52,9 @@ export default {
     CardBox,
     CardDashboard,
   },
+  mounted() {
+    this.$router.push('/dashboard')
+  },
 };
 </script>
 

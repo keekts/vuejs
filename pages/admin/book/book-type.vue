@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-btn @click="dialogAdd = true" color="primary" fab absolute bottom right>
+  <v-btn @click="dialogAdd = true" color="primary" fab fixed bottom right>
     <v-icon>mdi-plus</v-icon>
   </v-btn>
   <v-container grid-list-xs>

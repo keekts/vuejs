@@ -38,8 +38,8 @@
       </template>
     </v-data-table>
   </v-container>
-  <v-btn color="primary" fab absolute bottom right to="/admin/emp/add">
-    <v-icon>mdi-plus</v-icon>
+  <v-btn color="primary" fab fixed bottom right to="/admin/emp/add">
+    <v-icon>mdi-account-plus-outline</v-icon>
   </v-btn>
 
   <ConfirmBox v-model="del" @ok="deleteAction" okText="delete">

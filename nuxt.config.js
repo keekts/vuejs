@@ -85,13 +85,13 @@ export default {
             url: config['API_URL'] + 'auth',
             method: 'post',
             propertyName: 'token',
-            maxAge: 30 * 24 * 60 * 60
+            // maxAge: 30 * 24 * 60 * 60 * 30 
           },
           // refresh: { url: '/api/auth/refresh', method: 'post' },
           user: {
             url: config['API_URL'] + 'auth',
             method: 'get',
-            autoFetch: true,
+            // autoFetch: true,
           },
           // logout: { url: '/api/auth/logout', method: 'post' }
         },

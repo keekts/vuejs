@@ -43,8 +43,8 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-btn color="primary" fab absolute bottom right to="/admin/book/add">
-    <v-icon>mdi-plus</v-icon>
+  <v-btn color="primary" fab fixed bottom right to="/admin/book/add">
+    <v-icon>mdi-book-plus</v-icon>
   </v-btn>
 </div>
 </template>
