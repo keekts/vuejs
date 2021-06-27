@@ -3,10 +3,12 @@
     <v-container grid-list-xs>
       <v-row>
         <v-col>
-          <v-layout  wrap>
+          <v-layout wrap>
             <h4>{{ $t("sell") }}</h4>
             <v-spacer></v-spacer>
-            <v-btn to="/admin/sell" text color="primary">{{$t('sell_list')}}</v-btn>
+            <v-btn to="/admin/sell" text color="primary">{{
+              $t("sell_list")
+            }}</v-btn>
           </v-layout>
           <div>
             <v-list-item v-if="customer" @click="selectCus = true">
@@ -95,6 +97,17 @@
             </template>
           </v-data-table>
 
+          <v-divider class="my-4"></v-divider>
+          <v-layout wrap>
+            <v-spacer></v-spacer>
+            <div class="px-4">
+              {{$t('total')}} : 
+              <b class="green--text display-2">
+                {{ formatNumber(total) }}
+              </b>
+            </div>
+          </v-layout>
+
           <div class="mt-4">
             <v-btn @click="$router.back()" color="error" text>
               {{ $t("cancel") }}
@@ -137,10 +150,10 @@ export default {
       path: process.env.BASE_URL,
       sell_date: new Date().toISOString().substring(0, 10),
       headers: [
-        { text: this.$t("image"), value: "cover" },
+        { text: this.$t("image"), value: "cover",width:60  },
         { text: this.$t("name"), value: "name" },
         { text: this.$t("price"), value: "price", align: "right" },
-        { text: this.$t("qty"), value: "qty", align: "right" },
+        { text: this.$t("qty"), value: "qty"},
         { text: this.$t("total"), value: "total", align: "right" },
         { text: this.$t("option"), value: "option" },
       ],
@@ -167,7 +180,7 @@ export default {
 
         let sellInput = {
           emp_id: this.$auth.user.id,
-          sell_date: this.sell_date+ ' ' + new Date().toTimeString() ,
+          sell_date: this.sell_date + " " + new Date().toTimeString(),
           customer_id: this.customer.id,
           status: "sell",
           status_payment: "payed",
@@ -216,6 +229,11 @@ export default {
     setCustomer(cus) {
       this.customer = cus;
       this.selectCus = false;
+    },
+  },
+  computed: {
+    total() {
+      return this.items.reduce((a, b) => a + b.qty * b.price, 0);
     },
   },
 };

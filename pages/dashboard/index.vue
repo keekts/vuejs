@@ -169,6 +169,7 @@ import BarChart from "~/components/chart/BarChart.js";
 import DoughnutChart from "~/components/chart/DoughnutChart.js";
 import LineChart from "~/components/chart/LineChart.js";
 import chartOption from "~/mixins/chartOption";
+import color from "~/helper/colors";
 export default {
   layout: "admin",
   components: {
@@ -185,7 +186,7 @@ export default {
       bookItems: [],
       users: 0,
       books: 0,
-      orders:0,
+      orders: 0,
       customers: 0,
       chartOption2: {
         responsive: true,
@@ -197,16 +198,7 @@ export default {
           },
         },
       },
-      dataChart: {
-        labels: ["2020", "2021", "2022"],
-        datasets: [
-          {
-            label: this.$t("top_order"),
-            backgroundColor: ["#F08080", "#6495ED", "#CCCCFF"],
-            data: [1, 3, 6],
-          },
-        ],
-      },
+      dataChart: null,
       recent_orders: [],
       headers: [
         {
@@ -253,6 +245,19 @@ export default {
         this.orders = rs.data.orders;
         this.users = rs.data.users;
         this.books = rs.data.books;
+
+        let { sell_data_chart } = rs.data;
+
+        this.dataChart = {
+          labels: sell_data_chart.map(e => e.date),
+          datasets: [
+            {
+              label: this.$t("top_order"),
+              backgroundColor: color.colors,
+              data: sell_data_chart.map(e => e.total),
+            },
+          ],
+        };
       } catch (error) {}
     },
   },

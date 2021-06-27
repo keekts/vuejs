@@ -102,7 +102,7 @@ export default {
       login: '/sign-in',
       logout: '/sign-in',
       callback: '/sign-in',
-      home: '/'
+      // home: '/'
     },
     watchLoggedIn: true,
     rewriteRedirects: true

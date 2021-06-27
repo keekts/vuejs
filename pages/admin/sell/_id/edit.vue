@@ -106,6 +106,18 @@
               </div>
             </template>
           </v-data-table>
+
+          <v-divider class="my-4"></v-divider>
+          <v-layout wrap>
+            <v-spacer></v-spacer>
+            <div class="px-4">
+              {{$t('total')}} : 
+              <b class="green--text display-2">
+                {{ formatNumber(total) }}
+              </b>
+            </div>
+          </v-layout>
+
         </v-col>
       </v-row>
     </v-container>
@@ -145,7 +157,7 @@ export default {
       selectBook: false,
       path: process.env.BASE_URL,
       headers: [
-        { text: this.$t("image"), value: "cover" },
+        { text: this.$t("image"), value: "cover",width:60  },
         { text: this.$t("name"), value: "name" },
         { text: this.$t("price"), value: "price", align: "price" },
         { text: this.$t("qty"), value: "qty", align: "right" },
@@ -228,6 +240,11 @@ export default {
       } catch (error) {
          this.$toast.error(this.$t("fail") + " " + error.toString());
       }
+    },
+  },
+  computed: {
+    total() {
+      return this.items.reduce((a, b) => a + b.qty * b.price, 0);
     },
   },
 };

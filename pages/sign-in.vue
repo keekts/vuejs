@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xs>
     <v-row>
-      <v-col md="6" cols="12">
+      <v-col md="3" cols="12" sm="4" xl="4">
         <h1 class="mb-4">{{$t('login')}}</h1>
         <v-text-field
           :label="$t('username')"
@@ -15,7 +15,7 @@
           :type="!showPass ? 'password' : 'text'"
           @click:append="showPass = !showPass" v-model="frm.password"
           rounded
-          filled
+          filled @keyup.enter="userLogin()"
         ></v-text-field>
         <v-btn @click.prevent="userLogin()" color="primary" height="60" rounded large block>{{$t('login')}}</v-btn>
       </v-col>

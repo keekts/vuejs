@@ -25,8 +25,16 @@
             </div>
             <v-spacer></v-spacer>
 
-            <v-btn to="/sign-up" text>ລົງທະບຽນ</v-btn>
-            <v-btn to="/sign-in" text>ເຂົ້າ​ສູ່​ລະ​ບົບ</v-btn>
+            <span v-if="$auth.loggedIn">
+              <v-btn to="/dashboard" icon :title="$t('dashboard') ">
+              <v-icon>mdi-monitor-dashboard</v-icon>
+              </v-btn>
+              <v-btn @click="$auth.logout()" text>{{$t('logout') }}</v-btn>
+            </span>
+            <span v-else>
+              <v-btn to="/sign-up" text>ລົງທະບຽນ</v-btn>
+              <v-btn to="/sign-in" text>ເຂົ້າ​ສູ່​ລະ​ບົບ</v-btn>
+            </span>
 
             <v-badge overlap color="red">
               <template v-slot:badge>
@@ -62,19 +70,19 @@ export default {
         {
           icon: "mdi-apps",
           title: "Welcome",
-          to: "/"
+          to: "/",
         },
         {
           icon: "mdi-chart-bubble",
           title: "Inspire",
-          to: "/inspire"
-        }
+          to: "/inspire",
+        },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "Vuetify.js"
+      title: "Vuetify.js",
     };
-  }
+  },
 };
 </script>
