@@ -26,10 +26,10 @@
             <v-spacer></v-spacer>
 
             <span v-if="$auth.loggedIn">
-              <v-btn to="/dashboard" icon :title="$t('dashboard') ">
-              <v-icon>mdi-monitor-dashboard</v-icon>
+              <v-btn to="/dashboard" icon :title="$t('dashboard')">
+                <v-icon>mdi-monitor-dashboard</v-icon>
               </v-btn>
-              <v-btn @click="$auth.logout()" text>{{$t('logout') }}</v-btn>
+              <v-btn @click="$auth.logout()" text>{{ $t("logout") }}</v-btn>
             </span>
             <span v-else>
               <v-btn to="/sign-up" text>ລົງທະບຽນ</v-btn>
@@ -38,9 +38,9 @@
 
             <v-badge overlap color="red">
               <template v-slot:badge>
-                <span>1</span>
+                <span>{{ $store.state.cart.carts.length }}</span>
               </template>
-              <v-btn to="/card" icon>
+              <v-btn to="/cart" icon>
                 <v-icon>mdi-cart-outline</v-icon>
               </v-btn>
             </v-badge>

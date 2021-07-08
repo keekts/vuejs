@@ -8,9 +8,7 @@
               <v-img :src="path + item.cover" height="200"></v-img>
 
               <div>
-                <v-card-subtitle
-                  v-text="item.name"
-                ></v-card-subtitle>
+                <v-card-subtitle v-text="item.name"></v-card-subtitle>
                 <!-- <v-card-subtitle v-html="item.description"></v-card-subtitle> -->
                 <!-- <v-card-text>
                   <div>
@@ -27,8 +25,11 @@
                   ></v-rating> -->
                   <b class="subtitle"> {{ formatNumber(item.price) }} LAK </b>
                   <v-spacer></v-spacer>
-                  <v-btn icon>
+                  <v-btn @click="addCart(item)" v-if="!item.checked" icon>
                     <v-icon>mdi-cart-plus</v-icon>
+                  </v-btn>
+                  <v-btn @click="removeCart(item.id)" v-else icon color="red">
+                    <v-icon>mdi-cart-remove</v-icon>
                   </v-btn>
                 </v-card-actions>
               </div>
@@ -55,6 +56,21 @@ export default {
   methods: {
     formatNumber(n) {
       return Number(n).toLocaleString();
+    },
+    addCart(book) {
+      try {
+        this.$store.commit("cart/addCart", book);
+        this.$toast.success(this.$t("success"), { position: "bottom-right" });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    removeCart(bookID) {
+      try {
+        this.$store.commit("cart/removeCart", bookID);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   computed: {

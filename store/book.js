@@ -16,7 +16,13 @@ export const actions = {
           limit: 10,
         },
       });
-      commit("setBook", rs.data.results);
+      commit(
+        "setBook",
+        rs.data.results.map((e) => {
+          e["checked"] = false;
+          return e;
+        })
+      );
     } catch (error) {}
   },
 };
