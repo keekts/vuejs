@@ -42,9 +42,9 @@
               <v-list-item-title
                 >{{ emp.first }} {{ emp.last }}</v-list-item-title
               >
-              <v-list-item-title class="subtitle red--text"
-                >BILL ID : {{ $route.params.id }}</v-list-item-title
-              >
+              <v-list-item-title class="subtitle red--text">
+                <b>BILL ID : {{ $route.params.id }}</b>
+              </v-list-item-title>
               <v-list-item-title
                 >{{ $t("date") }}:
                 {{ formaDate(sell.sell_date) }}</v-list-item-title

@@ -3,7 +3,7 @@
     <v-navigation-drawer app permanent floating width="120">
       <v-layout column justify-center justify-space-between fill-height>
         <div>
-          <v-list-item>
+          <v-list-item @click="$router.push('/dashboard')">
             <v-list-item-title class="text-center">
               <v-avatar size="48" class="mt-4" tile>
                 <img src="@/static/icon.png" alt="alt" />
@@ -32,7 +32,7 @@
         </v-list>
 
         <div>
-          <v-list-item>
+          <v-list-item to="/admin/emp/profile">
             <v-list-item-content class="text-center">
               <div>
                 <v-avatar size="48" color="grey lighten-4">
@@ -52,6 +52,9 @@
       <v-toolbar-title v-html="'<b>' + $t('dashboard') + '</b>'">
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn to="/" title="Fontend" text>
+        <v-icon>mdi-home-outline</v-icon> &nbsp; {{ $t("font_end") }}
+      </v-btn>
       <div>
         <v-text-field
           :placeholder="$t('search')"
@@ -65,6 +68,10 @@
           prepend-inner-icon="mdi-magnify"
         ></v-text-field>
       </div>
+
+      <v-btn @click="$auth.logout()" color="error" icon>
+        <v-icon>mdi-power</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>

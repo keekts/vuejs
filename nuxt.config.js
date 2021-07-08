@@ -105,7 +105,7 @@ export default {
       // home: '/'
     },
     watchLoggedIn: true,
-    rewriteRedirects: true
+    // rewriteRedirects: true
   },
   /*
    ** vuetify module configuration

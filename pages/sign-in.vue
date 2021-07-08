@@ -57,9 +57,12 @@ export default {
     async userLogin() {
       try {
         let response = await this.$auth.loginWith('local', { data: this.frm })
-        console.log(response)
+        if(response.data.user.auther=="Admin"){
+          this.$router.push('/dashboard')
+        }
       } catch (err) {
-        console.log(err)
+        console.log(err);
+        this.$toast.error(this.$t('login_fail'));
       }
     }
   }

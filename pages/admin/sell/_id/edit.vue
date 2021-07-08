@@ -111,13 +111,12 @@
           <v-layout wrap>
             <v-spacer></v-spacer>
             <div class="px-4">
-              {{$t('total')}} : 
+              {{ $t("total") }} :
               <b class="green--text display-2">
                 {{ formatNumber(total) }}
               </b>
             </div>
           </v-layout>
-
         </v-col>
       </v-row>
     </v-container>
@@ -157,7 +156,7 @@ export default {
       selectBook: false,
       path: process.env.BASE_URL,
       headers: [
-        { text: this.$t("image"), value: "cover",width:60  },
+        { text: this.$t("image"), value: "cover", width: 60 },
         { text: this.$t("name"), value: "name" },
         { text: this.$t("price"), value: "price", align: "price" },
         { text: this.$t("qty"), value: "qty", align: "right" },
@@ -211,9 +210,14 @@ export default {
           price: book.price,
           sell_id: this.sell.id,
         };
-        let rs = await this.$axios.post("selldetail", { input: val });
-        this.getData();
-        this.$toast.success(this.$t("saved"));
+        let check = this.items.some((e) => e.book_id == book.id);
+        if (!check) {
+          let rs = await this.$axios.post("selldetail", { input: val });
+          this.getData();
+          this.$toast.success(this.$t("saved"));
+        } else {
+          this.$toast.error(this.$t("have_data"));
+        }
       } catch (error) {
         this.$toast.error(this.$t("fail") + " " + error.toString());
       }
@@ -238,7 +242,7 @@ export default {
           });
         }
       } catch (error) {
-         this.$toast.error(this.$t("fail") + " " + error.toString());
+        this.$toast.error(this.$t("fail") + " " + error.toString());
       }
     },
   },

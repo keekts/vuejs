@@ -45,9 +45,9 @@
               <v-list-item-title
                 >{{ emp.first }} {{ emp.last }}</v-list-item-title
               >
-              <v-list-item-title class="subtitle red--text"
-                >BILL ID : {{ $route.params.id }}</v-list-item-title
-              >
+              <v-list-item-title class="subtitle red--text">
+                <b>BILL ID : {{ $route.params.id }}</b>
+              </v-list-item-title>
               <v-list-item-title
                 >{{ $t("date") }}:
                 {{ formaDate(sell.sell_date) }}</v-list-item-title
@@ -97,13 +97,12 @@
           <v-layout wrap>
             <v-spacer></v-spacer>
             <div class="px-4">
-              {{$t('total')}} : 
+              {{ $t("total") }} :
               <b class="green--text display-2">
                 {{ formatNumber(total) }}
               </b>
             </div>
           </v-layout>
-
         </v-col>
       </v-row>
     </v-container>
@@ -121,7 +120,7 @@ export default {
       customer: null,
       path: process.env.BASE_URL,
       headers: [
-        { text: this.$t("image"), value: "cover",width:60  },
+        { text: this.$t("image"), value: "cover", width: 60 },
         { text: this.$t("name"), value: "name" },
         { text: this.$t("price"), value: "price", align: "price" },
         { text: this.$t("qty"), value: "qty", align: "right" },
