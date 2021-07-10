@@ -97,17 +97,17 @@
                   color="success"
                   depressed
                   rounded
+                  outlined
                   small
-                  >{{ $t("import") }}</v-btn
+                  >{{ $t("imported") }}</v-btn
                 >
                 <v-btn
                   v-else
                   color="success"
                   @click="setApply(item)"
-                  outlined
                   rounded
                   small
-                  >{{ $t("imported") }}</v-btn
+                  >{{ $t("import") }}</v-btn
                 >
               </div>
             </template>
@@ -163,21 +163,26 @@ export default {
     },
     async setApply(item) {
       try {
+        if (item.price < 1) {
+          this.$toast.error(this.$t("val_price"));
+          return;
+        }
+
         item["apply"] = !item["apply"];
+
         let val = {
           purchaser_detail_id: item.id,
           qty: item.give_qty,
           import_date: this.import_date,
           price: item.price,
         };
-        console.log(val);
         let rs = await this.$axios.post("import", {
           input: val,
           book_id: item.book_id,
         });
-        this.$toast.success(this.$t('success'))
+        this.$toast.success(this.$t("success"));
       } catch (error) {
-        this.$toast.error(this.$t('fail'))
+        this.$toast.error(this.$t("fail"));
       }
     },
   },

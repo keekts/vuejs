@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container grid-list-xs>
+    <v-container grid-list-xs fluid>
       <v-row class="hide-print">
         <v-col>
           <v-layout wrap>

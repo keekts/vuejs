@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container grid-list-xs>
+    <v-container grid-list-xs fluid>
       <v-row v-if="book">
         <v-col md="2">
           <v-img :src="path + book.cover" v-if="book.cover"></v-img>

@@ -3,7 +3,7 @@
   <v-btn @click="dialogAdd = true" color="primary" fab fixed bottom right>
     <v-icon>mdi-plus</v-icon>
   </v-btn>
-  <v-container grid-list-xs>
+  <v-container grid-list-xs fluid>
     <v-layout wrap>
       <h3>
         <v-btn @click="$router.back()" icon>

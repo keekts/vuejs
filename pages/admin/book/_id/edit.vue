@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container grid-list-xs>
+    <v-container grid-list-xs fluid>
       <h3>
         <v-btn @click="$router.push('/admin/book')" icon>
           <v-icon>mdi-arrow-left</v-icon>

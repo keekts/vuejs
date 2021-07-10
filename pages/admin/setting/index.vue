@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-container grid-list-xs>
+  <v-container grid-list-xs fluid>
     <h2 class="mb-4">{{$t('sys')}}</h2>
     <v-row>
       <v-col>

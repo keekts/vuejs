@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-container grid-list-xs>
+  <v-container grid-list-xs fluid>
     <h3>{{$t('add_emp')}}</h3>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-row>

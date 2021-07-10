@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-container grid-list-xs v-if="frm">
+  <v-container grid-list-xs fluid v-if="frm">
     <h3>{{$t('edit')}}</h3>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-row>
@@ -37,7 +37,7 @@
           <v-text-field :label="$t('username')+ '*'" :rules="nameRules" v-model="frm.username" required></v-text-field>
         </v-col>
         <v-col>
-          <v-text-field v-model="frm.password"></v-text-field>
+          <v-text-field  :label="$t('password')" v-model="frm.password"></v-text-field>
         </v-col>
         <v-col>
           <v-select :items="['User','Admin']" v-model="frm.auther" :label="$t('auther')"></v-select>

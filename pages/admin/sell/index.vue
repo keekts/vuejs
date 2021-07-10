@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container grid-list-xs>
+    <v-container grid-list-xs fluid>
       <v-row>
         <v-col>
           <h4 class="mb-4">
@@ -49,6 +49,9 @@
 <script>
 export default {
   layout: "admin",
+  head() {
+    return { title: "sell" };
+  },
   data() {
     return {
       sells: [],
@@ -62,7 +65,7 @@ export default {
           width: 60,
         },
         {
-          text: this.$t("name"),
+          text: this.$t("customer"),
           value: "first",
         },
         {

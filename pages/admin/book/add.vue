@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-container grid-list-xs>
+  <div >
+    <v-container grid-list-xs fluid> 
       <h3>
         <v-btn @click="$router.push('/admin/book')" icon>
           <v-icon>mdi-arrow-left</v-icon>
@@ -53,6 +53,7 @@
 import { VueEditor } from "vue2-editor";
 import BookType from "~/components/book/bookTypeDropdown";
 export default {
+  layout:'admin',
   components: {
     VueEditor,
     BookType

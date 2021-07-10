@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-container grid-list-xs>
+  <v-container grid-list-xs fluid>
     <h4 class="mb-4">{{$t('supplier')}}</h4>
     <v-row>
       <v-col>

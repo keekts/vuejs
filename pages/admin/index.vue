@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container grid-list-xs>
+    <v-container grid-list-xs fluid>
       <v-row>
         <v-col>
           <CardDashboard

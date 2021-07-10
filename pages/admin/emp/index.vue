@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-container grid-list-xs>
+  <v-container grid-list-xs fluid> 
     <h3>{{$t('emp')}}</h3>
     <v-data-table :headers="headers" :items="users" loading="true">
       <template v-slot:item.photo="{item}">

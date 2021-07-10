@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-container grid-list-xs>
+  <v-container grid-list-xs fluid>
     <v-tabs>
       <v-tab to="/admin/book">{{ $t("book") }}</v-tab>
       <v-tab to="/admin/book/book-type">{{ $t("book_type") }}</v-tab>
@@ -38,7 +38,6 @@
     </v-layout>
     <v-row>
       <v-col>
-        <v-list> </v-list>
         <v-pagination @input="getData" :length="pageTotal" total-visible="7" v-model="page"></v-pagination>
       </v-col>
     </v-row>

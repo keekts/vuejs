@@ -6,7 +6,10 @@
           <v-icon dark size="36">{{ icon }}</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class="display-1">{{ title }}</v-list-item-title>
+          <v-list-item-title v-if="!text" class="display-1">{{
+            title
+          }}</v-list-item-title>
+          <v-list-item-title v-else>{{ title }}</v-list-item-title>
           <v-list-item-subtitle>{{ desc }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -21,8 +24,9 @@ export default {
     title: { type: String, default: "Untitle" },
     desc: { type: String, default: "Untitle" },
     icon: { type: String, default: "mdi-file" },
-    avatarColor: { type: String, default: "green" }
-  }
+    avatarColor: { type: String, default: "green" },
+    text: Boolean,
+  },
 };
 </script>
 
