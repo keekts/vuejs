@@ -152,6 +152,7 @@ export default {
         this.loading = false;
         this.$toast.error(this.$t("fail"));
       }
+      this.loading = false;
     },
     openDel(item) {
       this.customer = item;

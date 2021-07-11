@@ -21,21 +21,27 @@
                 solo-inverted
                 append-icon="mdi-magnify"
                 hide-details
+                @keyup="$store.commit('setFsearch', $event.target.value)"
               ></v-text-field>
             </div>
             <v-spacer></v-spacer>
 
-            <span v-if="$auth.loggedIn">
+            <span v-if="$auth.loggedIn && $auth.user.auther != 'customer'">
               <v-btn to="/dashboard" icon :title="$t('dashboard')">
                 <v-icon>mdi-monitor-dashboard</v-icon>
               </v-btn>
-              <v-btn @click="$auth.logout()" text>{{ $t("logout") }}</v-btn>
             </span>
-            <span v-else>
+            <span v-if="!$auth.loggedIn">
               <v-btn to="/sign-up" text>ລົງທະບຽນ</v-btn>
               <v-btn to="/sign-in" text>ເຂົ້າ​ສູ່​ລະ​ບົບ</v-btn>
             </span>
+            <span v-else>
+              <v-btn to="/profile" text>{{ $t("profile") }}</v-btn>
 
+              <v-btn @click="$auth.logout()" icon :title="$t('logout')" dark>
+                <v-icon>mdi-power</v-icon>
+              </v-btn>
+            </span>
             <v-badge overlap color="red">
               <template v-slot:badge>
                 <span>{{ $store.state.cart.carts.length }}</span>

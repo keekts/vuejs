@@ -79,7 +79,6 @@ export default {
         }
       } catch (err) {
         this.loading = false;
-
         this.$toast.error(this.$t("login_fail"));
       }
     },

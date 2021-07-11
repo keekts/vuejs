@@ -4,6 +4,20 @@
       <v-row>
         <v-col>
           <h3 class="grey--text text--darken-2">{{ $t("cart") }}</h3>
+          <section class="my-2" v-if="sell">
+            <v-card outlined :to="`/cart/${sell.id}`">
+              <v-card-text>
+                <h4>{{ $t("old_order") }}</h4>
+              </v-card-text>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>{{ formatDate(sell.sell_date) }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ sell.status }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </section>
+
           <v-data-table
             :headers="headers"
             :items="items"
@@ -58,6 +72,18 @@
             <h2 class="display-2 teal--text">{{ formatNumber(total) }} LAK</h2>
             {{ $t("total") }}
           </div>
+          <v-divider class="my-4"></v-divider>
+          <v-btn
+            @click.prevent="confirmAction()"
+            color="teal"
+            :disabled="!$auth.loggedIn"
+            v-show="items.length > 0"
+            dark
+            >{{ $t("confirm_order") }}</v-btn
+          >
+          <v-alert type="warning" v-show="!$auth.loggedIn" class="my-2">
+            {{ $t("pl_register") }}
+          </v-alert>
         </v-col>
       </v-row>
 
@@ -85,6 +111,7 @@ export default {
     return {
       path: process.env.BASE_URL,
       current: null,
+      sell: null,
       del: false,
       headers: [
         { text: this.$t("image"), value: "cover", width: 60 },
@@ -96,9 +123,15 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.getCart();
+  },
   methods: {
     formatNumber(n) {
       return Number(n).toLocaleString();
+    },
+    formatDate(n) {
+      return new Date(n).toLocaleDateString();
     },
     async setQty(item, state = 1) {
       try {
@@ -125,7 +158,35 @@ export default {
         this.$store.commit("cart/removeCart", this.current.id);
       } catch (error) {}
     },
-   
+    async confirmAction() {
+      try {
+        this.$toast.info(this.$t("please"));
+        let input = {
+          customer_id: this.$auth.user.id,
+          status: "order",
+          status_payment: "wait",
+        };
+        let rs = await this.$axios.post("cart", {
+          input: input,
+          items: this.items,
+        });
+        this.$toast.success(this.$t("success"));
+        this.$store.commit("cart/removeAll");
+        this.getCart()
+      } catch (error) {
+        this.$toast.erorr(this.$t("fail"));
+      }
+    },
+    async getCart() {
+      try {
+        if (this.$auth.loggedIn);
+        let rs = await this.$axios.get("cart", {
+          params: { id: this.$auth.user.id },
+        });
+        this.sell = rs.data.sell;
+      } catch (error) {
+      }
+    },
   },
   computed: {
     items() {

@@ -1,9 +1,13 @@
 export const state = () => ({
-  search: ''
-})
+  search: "",
+  fsearch: "",
+});
 
 export const mutations = {
   search(state, search) {
-   state.search = search
+    state.search = search;
   },
-}
+  setFsearch(state, search) {
+    state.fsearch = search;
+  },
+};

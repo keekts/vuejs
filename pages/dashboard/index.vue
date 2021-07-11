@@ -106,13 +106,18 @@
               style="max-height:300px"
               :options="chartOption"
             />
+            <v-skeleton-loader
+              type="card-avatar, article"
+              height="300"
+              v-if="loading"
+            ></v-skeleton-loader>
           </v-card>
         </v-col>
       </v-row>
 
       <v-row class="my-4">
         <v-col>
-          <v-card>
+          <v-card :loading="loading">
             <v-card-title primary-title>
               {{ $t("book_row_qty") }}
             </v-card-title>
@@ -142,15 +147,20 @@
         <v-col>
           <v-card outlined>
             <v-card-title primary-title>
-              {{ $t("book") }}
+              {{ $t("book_type_sell") }}
             </v-card-title>
             <v-card-text>
               <DoughnutChart
-                :data="dataChart"
-                v-if="dataChart"
+                :data="dataChartBook"
+                v-if="dataChartBook"
                 :options="chartOption2"
                 style="max-height:270px"
               />
+              <v-skeleton-loader
+                type="card-avatar, article"
+                height="300"
+                v-if="loading"
+              ></v-skeleton-loader>
             </v-card-text>
           </v-card>
         </v-col>
@@ -188,6 +198,7 @@ export default {
       books: 0,
       orders: 0,
       customers: 0,
+      loading: false,
       chartOption2: {
         responsive: true,
         maintainAspectRatio: false,
@@ -199,6 +210,7 @@ export default {
         },
       },
       dataChart: null,
+      dataChartBook: null,
       recent_orders: [],
       headers: [
         {
@@ -232,6 +244,7 @@ export default {
     },
     async getData() {
       try {
+        this.loading = true;
         let rs = await this.$axios.get("dashboard");
         let book = await this.$axios.get("book/qtyRow", {
           params: {
@@ -249,16 +262,30 @@ export default {
         let { sell_data_chart } = rs.data;
 
         this.dataChart = {
-          labels: sell_data_chart.map(e => e.date),
+          labels: sell_data_chart.map((e) => e.date),
           datasets: [
             {
               label: this.$t("top_order"),
               backgroundColor: color.colors,
-              data: sell_data_chart.map(e => e.total),
+              data: sell_data_chart.map((e) => e.total),
             },
           ],
         };
-      } catch (error) {}
+
+        this.dataChartBook = {
+          labels: rs.data.chart_book.map((e) => e.type_name),
+          datasets: [
+            {
+              label: this.$t("top_order"),
+              backgroundColor: color.colors,
+              data: rs.data.chart_book.map((e) => e.count),
+            },
+          ],
+        };
+        this.loading = false;
+      } catch (error) {
+        this.loading = false;
+      }
     },
   },
 };

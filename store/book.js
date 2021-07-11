@@ -9,11 +9,12 @@ export const mutations = {
 };
 
 export const actions = {
-  async getBook({ commit, state }) {
+  async getBook({ commit, state }, param = {}) {
     try {
       let rs = await this.$axios.get("book", {
         params: {
           limit: 10,
+          ...param
         },
       });
       commit(

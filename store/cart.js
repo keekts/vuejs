@@ -3,6 +3,9 @@ export const state = () => ({
 });
 
 export const mutations = {
+  removeAll(state) {
+    state.carts = []
+  },
   addCart(state, book) {
     let check = state.carts.some((e) => e.id == book.id); // check book
     if (!check) {

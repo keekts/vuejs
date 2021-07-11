@@ -38,30 +38,45 @@
             </v-list-item-content>
           </v-list-item>
         </v-col>
-        <v-col v-if="emp">
-          <h5>{{ $t("emp") }}</h5>
-          <v-list-item class="pa-0">
-            <v-list-item-content>
-              <v-list-item-title
-                >{{ emp.first }} {{ emp.last }}</v-list-item-title
-              >
-              <v-list-item-title class="subtitle red--text">
-                <b>BILL ID : {{ $route.params.id }}</b>
-              </v-list-item-title>
-              <v-list-item-title
-                >{{ $t("date") }}:
-                {{ formaDate(sell.sell_date) }}</v-list-item-title
-              >
-              <v-list-item-title
-                >{{ $t("status") }}:
-                <v-chip small>{{ $t(sell.status) }}</v-chip>
-              </v-list-item-title>
-              <v-list-item-title
-                >{{ $t("status_payment") }}:
-                <v-chip small>{{ $t(sell.status_payment) }}</v-chip>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+        <v-col>
+          <section>
+            <h5>{{ $t("emp") }}</h5>
+            <v-list-item class="pa-0" v-if="emp">
+              <v-list-item-content>
+                <v-list-item-title
+                  >{{ emp.first }} {{ emp.last }}</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item v-if="sell">
+              <v-list-item-content>
+                <v-list-item-title class="subtitle red--text">
+                  <b>BILL ID : {{ $route.params.id }}</b>
+                </v-list-item-title>
+                <v-list-item-title
+                  >{{ $t("date") }}:
+                  {{ formaDate(sell.sell_date) }}</v-list-item-title
+                >
+                <v-list-item-title
+                  >{{ $t("status") }}:
+                  <v-chip small>{{ $t(sell.status) }}</v-chip>
+                </v-list-item-title>
+                <v-list-item-title
+                  >{{ $t("status_payment") }}:
+                  <v-chip small>{{ $t(sell.status_payment) }}</v-chip>
+                </v-list-item-title>
+                <v-btn
+                  @click.prevent="paymentAction()"
+                  color="success"
+                  v-if="sell.status_payment == 'wait'"
+                  rounded
+                  class="mt-2"
+                  >{{ $t("pay_and_print") }}</v-btn
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </section>
         </v-col>
       </v-row>
 
@@ -149,6 +164,28 @@ export default {
         this.sell = rs.data.sell;
         this.emp = rs.data.emp;
       } catch (error) {}
+    },
+    async paymentAction() {
+      try {
+        this.$toast.info(this.$t("please"));
+        let rs = await this.$axios.put("sell", {
+          input: {
+            status_payment: "payed",
+            status: "sell",
+            emp_id: this.$auth.user.id,
+          },
+          id: this.$route.params.id,
+        });
+        // down stock
+
+        let downBookQty = await this.$axios.post("selldetail/downQtyBook", {
+          items: this.items,
+        });
+        this.$toast.success(this.$t("success"));
+        this.$router.push(`/admin/sell/${this.$route.params.id}/print`);
+      } catch (error) {
+        this.$toast.error(this.$t("fail"));
+      }
     },
   },
   computed: {

@@ -5,18 +5,10 @@
         <template v-for="(item, index) in books">
           <v-col md="3" sm="6">
             <v-card outlined min-height="330">
-              <v-img
-                @click="$router.push(`/book/${item.id}`)"
-                :src="path + item.cover"
-                height="200"
-              ></v-img>
+              <v-img :src="path + item.cover" height="200"></v-img>
 
               <div>
-                <v-card-subtitle>
-                  <nuxt-link :to="`/book/${item.id}`" class="no-line">
-                    {{ item.name }}
-                  </nuxt-link>
-                </v-card-subtitle>
+                <v-card-subtitle v-text="item.name"></v-card-subtitle>
                 <!-- <v-card-subtitle v-html="item.description"></v-card-subtitle> -->
                 <!-- <v-card-text>
                   <div>
@@ -50,9 +42,7 @@
 </template>
 
 <script>
-import cart from '~/mixins/cart'
 export default {
-  mixins:[cart],
   data() {
     return {
       path: process.env.BASE_URL,
@@ -67,6 +57,20 @@ export default {
     formatNumber(n) {
       return Number(n).toLocaleString();
     },
+    addCart(book) {
+      try {
+        this.$store.commit("cart/addCart", book);
+        this.$toast.success(this.$t("success"), { position: "bottom-right" });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    removeCart(bookID) {
+      try {
+        this.$store.commit("cart/removeCart", bookID);
+      } catch (error) {}
+    },
+    searchAction() {},
   },
   computed: {
     searchText() {
@@ -84,8 +88,4 @@ export default {
 };
 </script>
 
-<style>
-.no-line {
-  text-decoration: none;
-}
-</style>
+<style></style>
