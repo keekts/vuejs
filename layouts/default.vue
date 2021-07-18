@@ -32,8 +32,8 @@
               </v-btn>
             </span>
             <span v-if="!$auth.loggedIn">
-              <v-btn to="/sign-up" text>ລົງທະບຽນ</v-btn>
-              <v-btn to="/sign-in" text>ເຂົ້າ​ສູ່​ລະ​ບົບ</v-btn>
+              <v-btn to="/sign-up" text>{{$t("register")}}</v-btn>
+              <v-btn to="/sign-in" text>{{$t("login")}}</v-btn>
             </span>
             <span v-else>
               <v-btn to="/profile" text>{{ $t("profile") }}</v-btn>
