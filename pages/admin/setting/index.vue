@@ -111,6 +111,7 @@ import CardDashboard from "~/components/CardDashboard";
 import BarChart from "~/components/chart/BarChart.js";
 import chartOption from "~/mixins/chartOption";
 import color from "~/helper/colors";
+import format from "~/mixins/format";
 
 export default {
   layout: "admin",
@@ -120,7 +121,7 @@ export default {
     CardDashboard,
     BarChart,
   },
-  mixins: [chartOption],
+  mixins: [chartOption,format],
   data() {
     return {
       users: 0,
@@ -136,9 +137,7 @@ export default {
     this.getData();
   },
   methods: {
-    formatDate(d) {
-      return new Date(d).toLocaleDateString();
-    },
+    
     async getData() {
       try {
         this.loading = true;
