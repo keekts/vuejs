@@ -83,8 +83,10 @@
 </template>
 
 <script>
+import format from '~/mixins/format'
 export default {
   layout: "admin",
+  mixins:[format],
   data() {
     return {
       loading:false,
@@ -107,12 +109,6 @@ export default {
     this.getItems();
   },
   methods: {
-    formatNumber(n) {
-      return Number(n || "0").toLocaleString();
-    },
-    formatDate(n) {
-      return new Date(n).toLocaleString();
-    },
     async getReport() {
       try {
         let rs = await this.$axios.get("sell/report", {

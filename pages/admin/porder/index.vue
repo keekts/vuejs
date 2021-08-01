@@ -48,8 +48,10 @@
 </template>
 
 <script>
+import format from '~/mixins/format'
 export default {
   layout: "admin",
+  mixins:[format],
   data() {
     return {
       porders: [],
@@ -65,9 +67,7 @@ export default {
     this.getData();
   },
   methods: {
-    formatDate(d) {
-      return new Date(d).toLocaleDateString();
-    },
+    
     async getData() {
       try {
         let reqPorder = await this.$axios.get("porder", {

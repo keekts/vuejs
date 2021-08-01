@@ -47,11 +47,13 @@
 </template>
 
 <script>
+import format from '~/mixins/format'
 export default {
   layout: "admin",
   head() {
     return { title: "Order" };
   },
+  mixins:[format],
   data() {
     return {
       sells: [],
@@ -87,12 +89,6 @@ export default {
     this.getData();
   },
   methods: {
-    formatNumber(n) {
-      return Number(n).toLocaleString();
-    },
-    formatDate(n) {
-      return new Date(n).toLocaleString();
-    },
     async getData() {
       try {
         let rs = await this.$axios.get("sell/status", {

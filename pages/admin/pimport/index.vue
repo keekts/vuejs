@@ -64,12 +64,14 @@
 
 <script>
 import ConfirmBox from "~/components/ConfirmBox";
+import format from '~/mixins/format'
 
 export default {
   layout: "admin",
   components: {
     ConfirmBox,
   },
+  mixins:[format],
   data() {
     return {
       items: [],
@@ -100,12 +102,6 @@ export default {
     this.getData();
   },
   methods: {
-    formatNumber(n) {
-      return Number(n).toLocaleString();
-    },
-    formatDate(n) {
-      return new Date(n).toLocaleDateString();
-    },
     async getData() {
       let rs = await this.$axios.get("import", {
         params: { limit: this.limit, offset: (this.page - 1) * this.limit,search: this.search },

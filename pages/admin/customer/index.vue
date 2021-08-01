@@ -60,6 +60,7 @@
 import AddCustomer from "~/components/customer/AddCustomer";
 import EditCustomer from "~/components/customer/EditCustomer";
 import ConfirmBox from "~/components/ConfirmBox";
+import format from '~/mixins/format'
 
 export default {
   layout: "admin",
@@ -68,6 +69,7 @@ export default {
     EditCustomer,
     ConfirmBox,
   },
+  mixins:[format],
   data() {
     return {
       add: false,
@@ -112,9 +114,7 @@ export default {
     this.getData();
   },
   methods: {
-    formatDate(d) {
-      return new Date(d).toLocaleDateString();
-    },
+    
     getColor(status) {
       let colors = { Pending: "grey", Approved: "primary", Blocked: "red" };
       return colors[status] || "grey";

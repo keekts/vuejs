@@ -47,7 +47,7 @@
               </v-list-item-title>
               <v-list-item-title
                 >{{ $t("date") }}:
-                {{ formaDate(sell.sell_date) }}</v-list-item-title
+                {{ formatDate(sell.sell_date) }}</v-list-item-title
               >
               <v-list-item-title
                 >{{ $t("status") }}:
@@ -119,8 +119,10 @@
 </template>
 
 <script>
+import format from '~/mixins/format'
 export default {
   layout: "print",
+  mixins:[format],
   data() {
     return {
       items: [],
@@ -141,12 +143,6 @@ export default {
     this.getData();
   },
   methods: {
-    formatNumber(n) {
-      return Number(n).toLocaleString();
-    },
-    formaDate(n) {
-      return new Date(n).toLocaleString();
-    },
     async getData() {
       try {
         let rs = await this.$axios.get("sell", {
