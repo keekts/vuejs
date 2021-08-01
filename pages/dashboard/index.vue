@@ -138,7 +138,7 @@
               </template>
               <template v-slot:item.price="{ item }">
                 <b>
-                  {{ toFormatNumber(item.price) }}
+                  {{ formatNumber(item.price) }}
                 </b>
               </template>
             </v-data-table>
@@ -180,6 +180,7 @@ import DoughnutChart from "~/components/chart/DoughnutChart.js";
 import LineChart from "~/components/chart/LineChart.js";
 import chartOption from "~/mixins/chartOption";
 import color from "~/helper/colors";
+import format from '~/mixins/format'
 export default {
   layout: "admin",
   components: {
@@ -189,7 +190,7 @@ export default {
     DoughnutChart,
     LineChart,
   },
-  mixins: [chartOption],
+  mixins: [chartOption,format],
   data() {
     return {
       path: process.env.BASE_URL,
@@ -236,12 +237,6 @@ export default {
     this.getData();
   },
   methods: {
-    formatDate(d) {
-      return new Date(d).toLocaleDateString();
-    },
-    toFormatNumber(n) {
-      return Number(n).toLocaleString();
-    },
     async getData() {
       try {
         this.loading = true;

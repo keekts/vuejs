@@ -44,7 +44,7 @@
               >
               <v-list-item-title
                 >{{ $t("date") }}:
-                {{ formaDate(sell.sell_date) }}</v-list-item-title
+                {{ formatDate(sell.sell_date) }}</v-list-item-title
               >
               <v-list-item-title
                 >{{ $t("status") }}:
@@ -85,7 +85,7 @@
                 <v-btn @click="setQty(item, (state = 0))" outlined icon small>
                   <v-icon>mdi-minus</v-icon>
                 </v-btn>
-                <b>{{ formatNumber(item.qty) }}</b>
+                <b>{{ formatNumber(item.qty,'') }}</b>
                 <v-btn @click="setQty(item, (state = 1))" outlined icon small>
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
@@ -138,13 +138,14 @@
 <script>
 import ConfirmBox from "~/components/ConfirmBox";
 import SelectBook from "~/components/book/SelectBook";
-
+import format from '~/mixins/format'
 export default {
   layout: "admin",
   components: {
     ConfirmBox,
     SelectBook,
   },
+  mixins:[format],
   data() {
     return {
       items: [],
@@ -169,12 +170,6 @@ export default {
     this.getData();
   },
   methods: {
-    formatNumber(n) {
-      return Number(n).toLocaleString();
-    },
-    formaDate(n) {
-      return new Date(n).toLocaleString();
-    },
     async getData() {
       try {
         let rs = await this.$axios.get("sell", {

@@ -3,7 +3,7 @@ import config from "./config.env.js";
 import i18n from "./config/i18n";
 
 export default {
-  mode: "spa",
+  ssr:false,
   env: config,
   /*
    ** Headers of the page
@@ -60,6 +60,7 @@ export default {
     "@nuxtjs/pwa",
     "@nuxtjs/auth-next",
     "vue-toastification/nuxt",
+    'nuxt-i18n',
   ],
   /*
    ** Axios module configuration

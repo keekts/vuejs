@@ -29,7 +29,7 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>{{ item.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{ item.price }}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ formatNumber(item.price) }} </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -38,11 +38,13 @@
 </template>
 
 <script>
+import format from '~/mixins/format'
 export default {
   inheritAttrs: false,
   props: {
     value: Boolean,
   },
+  mixins:[format],
   data() {
     return {
       path: process.env.BASE_URL,

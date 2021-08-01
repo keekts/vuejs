@@ -4,13 +4,13 @@
       <v-row v-if="book">
         <v-col md="2">
           <v-img :src="path + book.cover" v-if="book.cover"></v-img>
-          <div v-else>{{$t('no_image')}}</div>
+          <div v-else>{{ $t("no_image") }}</div>
           <div class="text-center">
             <label>
               <v-icon for="file" color="success" class="my-2">
                 mdi-camera
-              </v-icon> 
-              {{$t('change')}}
+              </v-icon>
+              {{ $t("change") }}
               <input
                 id="file"
                 type="file"
@@ -30,8 +30,14 @@
               <v-list-item-subtitle
                 v-html="book.description"
               ></v-list-item-subtitle>
-              <v-list-item-subtitle>LAK {{ toForrmat(book.price) }} {{$t('sell')}}</v-list-item-subtitle>
-              <v-list-item-subtitle>LAK {{ toForrmat(book.price_cost) }} {{$t('buy')}}</v-list-item-subtitle>
+              <v-list-item-subtitle
+                >LAK {{ toForrmat(book.price) }}
+                {{ $t("sell") }}</v-list-item-subtitle
+              >
+              <v-list-item-subtitle
+                >LAK {{ toForrmat(book.price_cost) }}
+                {{ $t("buy") }}</v-list-item-subtitle
+              >
               <div class="py-4">
                 <v-chip-group
                   active-class="primary--text"
@@ -54,7 +60,7 @@
                 >
                   <v-icon>mdi-pencil</v-icon> &nbsp; {{ $t("edit") }}
                 </v-btn>
-                <v-btn color="error" text>
+                <v-btn @click="openDelete" color="error" text>
                   <v-icon>mdi-delete</v-icon> {{ $t("delete") }}
                 </v-btn>
               </div>
@@ -63,25 +69,35 @@
         </v-col>
       </v-row>
     </v-container>
+
+    <ConfirmBox v-model="dialogDelete" okText="delete" @ok="deleteAction">
+      <v-card-text v-if="book">
+        <h3>{{ book.name }}</h3>
+      </v-card-text>
+    </ConfirmBox>
   </div>
 </template>
 
 <script>
 export default {
   layout: "admin",
+  components: {
+    ConfirmBox: () => import("~/components/ConfirmBox"),
+  },
   data() {
     return {
       book: null,
       bookType: [],
       path: process.env.BASE_URL,
+      dialogDelete: false,
     };
   },
   mounted() {
     this.getId();
   },
   methods: {
-    toForrmat(n){
-      return Number(n).toLocaleString()
+    toForrmat(n) {
+      return Number(n).toLocaleString();
     },
     async getId() {
       try {
@@ -105,6 +121,22 @@ export default {
         }
       } catch (error) {
         this.$toast.error(`${error}`);
+      }
+    },
+    openDelete() {
+      this.dialogDelete = true;
+    },
+    async deleteAction() {
+      try {
+        const req = await this.$axios.delete(`book/index/${this.book.id}`);
+        if (req.data.status == true) {
+          this.$toast.success(this.$t("delete"));
+          this.$router.back();
+        } else {
+          this.$toast.error(this.$t("cannot_delete"));
+        }
+      } catch (error) {
+        this.$toast.error(this.$t("cannot_delete"));
       }
     },
   },

@@ -31,7 +31,7 @@
                     readonly
                     medium
                   ></v-rating> -->
-                  <b class="subtitle"> {{ formatNumber(item.price) }} LAK </b>
+                  <b class="subtitle"> {{ formatNumber(item.price) }} </b>
                   <v-spacer></v-spacer>
                   <v-btn @click="addCart(item)" v-if="!item.checked" icon>
                     <v-icon>mdi-cart-plus</v-icon>
@@ -45,17 +45,25 @@
           </v-col>
         </template>
       </v-row>
+      <v-pagination
+        :length="pageTotal"
+        v-model="page"
+        @input="getData()"
+      ></v-pagination>
     </v-container>
   </div>
 </template>
 
 <script>
-import cart from '~/mixins/cart'
+import cart from "~/mixins/cart";
+import format from "~/mixins/format";
 export default {
-  mixins:[cart],
+  mixins: [cart, format],
   data() {
     return {
       path: process.env.BASE_URL,
+      page: 1,
+      limit: 10,
     };
   },
   mounted() {
@@ -64,8 +72,12 @@ export default {
     }
   },
   methods: {
-    formatNumber(n) {
-      return Number(n).toLocaleString();
+    getData() {
+      let val = {
+        limit: this.limit,
+        offset: (this.page - 1) * this.limit,
+      };
+      this.$store.dispatch("book/getBook", val);
     },
   },
   computed: {
@@ -74,6 +86,9 @@ export default {
     },
     books() {
       return this.$store.state.book.books;
+    },
+    pageTotal() {
+      return Math.ceil(this.$store.state.book.total / this.limit);
     },
   },
   watch: {

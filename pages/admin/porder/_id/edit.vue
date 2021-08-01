@@ -100,6 +100,7 @@
 <script>
 import ConfirmBox from "~/components/ConfirmBox";
 import SelectBook from "~/components/book/SelectBook";
+import format from '~/mixins/format'
 
 export default {
   layout: "admin",
@@ -107,6 +108,7 @@ export default {
     ConfirmBox,
     SelectBook,
   },
+  mixins:[format],
   data() {
     return {
       selectBook: false,
@@ -128,9 +130,6 @@ export default {
     this.getData();
   },
   methods: {
-    formatDate(d) {
-      return new Date(d).toLocaleDateString();
-    },
     async getData() {
       try {
         let rs = await this.$axios.get("porder", {
