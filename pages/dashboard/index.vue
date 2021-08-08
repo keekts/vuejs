@@ -183,6 +183,7 @@ import color from "~/helper/colors";
 import format from '~/mixins/format'
 export default {
   layout: "admin",
+  middleware: "user",
   components: {
     CardDashboard,
     CardBox,

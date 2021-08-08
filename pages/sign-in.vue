@@ -74,7 +74,7 @@ export default {
         this.loading = true;
         let response = await this.$auth.loginWith("local", { data: this.frm });
         this.loading = false;
-        if (response.data.user.auther == "Admin") {
+        if (response.data.user.auther != "Customer") {
           this.$router.push("/dashboard");
         }
       } catch (err) {

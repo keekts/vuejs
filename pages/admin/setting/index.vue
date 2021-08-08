@@ -3,7 +3,7 @@
     <v-container grid-list-xs fluid>
       <h2 class="mb-4">{{ $t("sys") }}</h2>
       <v-row>
-        <v-col>
+        <v-col >
           <card-box
             :title="`${users}`"
             :desc="$t('emp')"
@@ -115,7 +115,7 @@ import format from "~/mixins/format";
 
 export default {
   layout: "admin",
-  middleware: "admin",
+  middleware: "user",
   components: {
     CardBox,
     CardDashboard,
