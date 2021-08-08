@@ -13,15 +13,15 @@
         <div class="ma-2">
           <v-chip-group active-class="primary--text" v-model="mode" column @change="getItems()">
             <v-chip filter value="day">{{ $t("day") }}</v-chip>
-            <v-chip filter value="month">{{ $t("month") }}</v-chip>
-            <v-chip filter value="year">{{ $t("year") }}</v-chip>
+            <v-chip v-if="hasRole('reportMonth')" filter value="month">{{ $t("month") }}</v-chip>
+            <v-chip v-if="hasRole('reportYear')" filter value="year">{{ $t("year") }}</v-chip>
           </v-chip-group>
         </div>
       </v-layout>
       <v-row>
         <v-col cols="12" md="4">
           <template v-for="(item, index) in reportItems">
-            <v-card flat color="green lighten-4 mb-2" :key="index">
+            <v-card  v-if="hasRole(item['report'])" flat color="green lighten-4 mb-2" :key="index">
               <v-card-text>
                 <h4>
                  {{$t('report')}} : {{item.on_time}}
@@ -84,9 +84,10 @@
 
 <script>
 import format from '~/mixins/format'
+import role from '~/mixins/role'
 export default {
   layout: "admin",
-  mixins:[format],
+  mixins:[format,role],
   data() {
     return {
       loading:false,
