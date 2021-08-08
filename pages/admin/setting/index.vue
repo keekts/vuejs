@@ -3,7 +3,7 @@
     <v-container grid-list-xs fluid>
       <h2 class="mb-4">{{ $t("sys") }}</h2>
       <v-row>
-        <v-col >
+        <v-col v-if="hasRole('emp')">
           <card-box
             :title="`${users}`"
             :desc="$t('emp')"
@@ -112,6 +112,7 @@ import BarChart from "~/components/chart/BarChart.js";
 import chartOption from "~/mixins/chartOption";
 import color from "~/helper/colors";
 import format from "~/mixins/format";
+import role from "~/mixins/role";
 
 export default {
   layout: "admin",
@@ -121,7 +122,7 @@ export default {
     CardDashboard,
     BarChart,
   },
-  mixins: [chartOption,format],
+  mixins: [chartOption,format,role],
   data() {
     return {
       users: 0,
