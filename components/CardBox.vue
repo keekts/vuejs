@@ -1,19 +1,27 @@
 <template>
   <v-card v-bind="$attrs" v-on="$listeners">
-    <slot>
-      <v-list-item>
-        <v-list-item-avatar :color="avatarColor" size="70">
-          <v-icon dark size="36">{{ icon }}</v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title v-if="!text" class="display-1">{{
-            title
-          }}</v-list-item-title>
-          <v-list-item-title v-else>{{ title }}</v-list-item-title>
-          <v-list-item-subtitle>{{ desc }}</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </slot>
+    <v-list-item>
+      <v-list-item-content class="text-left">
+        <v-layout wrap>
+          <v-icon size="48" :color="iconColor">{{ icon }}</v-icon>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </v-layout>
+
+        <v-list-item-title class="my-2" :class="titleClass">{{
+          title
+        }}</v-list-item-title>
+        <v-list-item-subtitle>
+          <v-layout wrap>
+            <span>{{ fileCount }}</span>
+            <v-spacer></v-spacer>
+            <b>{{ fileSize }}</b>
+          </v-layout>
+        </v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
   </v-card>
 </template>
 
@@ -21,13 +29,15 @@
 export default {
   inheritAttrs: false,
   props: {
-    title: { type: String, default: "Untitle" },
-    desc: { type: String, default: "Untitle" },
-    icon: { type: String, default: "mdi-file" },
-    avatarColor: { type: String, default: "green" },
-    text: Boolean,
+    title: { type: String, default: 'UnTitle' },
+    fileSize: { type: String, default: '0' },
+    fileCount: { type: String, default: '0 file' },
+    icon: { type: String, default: 'mdi-folder-open-outline' },
+    iconColor: { type: String, default: 'blue' },
+    titleClass: { type: String, default: 'blue--text' },
   },
-};
+}
 </script>
 
-<style></style>
+<style>
+</style>

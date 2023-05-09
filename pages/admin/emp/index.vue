@@ -75,14 +75,7 @@ export default {
           value: "first",
           text: this.$t("name"),
         },
-        {
-          value: "phone",
-          text: this.$t("phone"),
-        },
-        {
-          value: "email",
-          text: this.$t("email"),
-        },
+
         {
           value: "username",
           text: this.$t("username"),

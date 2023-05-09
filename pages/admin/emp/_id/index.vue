@@ -8,7 +8,7 @@
               type="file"
               @change="changeCover($event)"
               accept="image/*"
-              style="display:none"
+              style="display: none"
               id="image"
             />
           </div>
@@ -77,16 +77,7 @@ export default {
     return {
       user: null,
       path: process.env.BASE_URL,
-      cols: [
-        "first",
-        "last",
-        "address",
-        "phone",
-        "age",
-        "email",
-        "username",
-        "auther",
-      ],
+      cols: ["first", "last", "username", "auther"],
     };
   },
   mounted() {

@@ -3,18 +3,16 @@
     <v-btn @click="dialogAdd = true" color="primary" fab fixed bottom right>
       <v-icon>mdi-plus</v-icon>
     </v-btn>
+
     <v-container grid-list-xs fluid>
       <v-layout wrap>
         <h3>
           <v-btn @click="$router.back()" icon>
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
-          {{ $t("book_type") }}
+          {{ $t("ວິຊາ") }}
         </h3>
       </v-layout>
-      <!-- <v-skeleton-loader v-show="loading"
-        type="article, actions"
-      ></v-skeleton-loader> -->
       <v-data-table
         :headers="headers"
         :items="items"
@@ -50,62 +48,29 @@
           </v-btn>
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text>
+        <v-card-text class="mt-5">
           <v-text-field
             name="name"
-            v-model="frm.type_name"
-            :label="$t('book_type')"
+            v-model="frm.sub_name"
+            :label="$t('ຊື່ວິຊາ')"
             id="id"
             @keyup.enter="add"
-          ></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="dialogAdd = false" text> {{ $t("cancel") }} </v-btn>
-          <v-btn
-            @click.prevent="add()"
-            :disabled="!frm.type_name.trim()"
-            color="primary"
-            text
+            solo
+            rounded
+            dense
           >
-            {{ $t("ok") }}
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog
-      v-model="dialogEdit"
-      :overlay="false"
-      max-width="500px"
-      transition="dialog-transition"
-    >
-      <v-card v-if="current">
-        <v-card-title primary-title>
-          {{ $t("edit") }}
-          <v-spacer></v-spacer>
-          <v-btn @click="dialogEdit = false" icon>
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text>
-          <v-text-field
-            :label="$t('book_type')"
-            v-model="current.type_name"
-          ></v-text-field>
+          </v-text-field>
         </v-card-text>
-        <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="dialogEdit = false" text>
+          <v-btn @click="dialogAdd = false" depressed color="error">
             {{ $t("cancel") }}
           </v-btn>
           <v-btn
-            @click.prevent="updateAction()"
-            :disabled="!current.type_name.trim()"
+            @click.prevent="add()"
+            :disabled="!frm.sub_name.trim()"
+            depressed
             color="primary"
-            text
           >
             {{ $t("ok") }}
           </v-btn>
@@ -128,11 +93,14 @@
 
 <script>
 import ConfirmBox from "~/components/ConfirmBox";
+
 export default {
   layout: "admin",
+
   components: {
     ConfirmBox,
   },
+
   data() {
     return {
       dialogAdd: false,
@@ -141,10 +109,10 @@ export default {
       loading: false,
       items: [],
       headers: [
-        // { value: "id", text: "ID" },
+        { value: "id", text: "ID" },
         {
-          value: "type_name",
-          text: this.$t("book_type"),
+          value: "sub_name",
+          text: this.$t("ຊື່ວິຊາ"),
         },
         {
           value: "action",
@@ -152,14 +120,16 @@ export default {
         },
       ],
       frm: {
-        type_name: "",
+        sub_name: "",
       },
       current: null,
     };
   },
+
   mounted() {
     this.getData();
   },
+
   methods: {
     openDel(item) {
       this.current = item;
@@ -169,34 +139,37 @@ export default {
       this.current = item;
       this.dialogEdit = true;
     },
+
     async getData() {
       try {
         this.loading = true;
-        let rs = await this.$axios.get("booktype");
-        this.items = rs.data.booktypes;
+        let rs = await this.$axios.get("subject");
+        this.items = rs.data.subjects;
         this.loading = false;
       } catch (error) {
         this.loading = false;
         this.$toast.error(`${error}`);
       }
     },
+
     async add() {
       try {
-        if (!this.frm.type_name.trim()) {
+        if (!this.frm.sub_name.trim()) {
           return;
         }
-        let rs = await this.$axios.post("booktype", this.frm);
-        this.items.push(rs.data.booktype);
-        this.frm.type_name = "";
+        let rs = await this.$axios.post("subject", this.frm);
+        this.items.push(rs.data.subject);
+        this.frm.sub_name = "";
         this.dialogAdd = false;
         this.$toast.success(this.$t("saved"));
       } catch (error) {
         this.$toast.error(`${error}`);
       }
     },
+
     async updateAction() {
       try {
-        let rs = await this.$axios.put("booktype", {
+        let rs = await this.$axios.put("subject", {
           ...this.current,
           id: this.current.id,
         });
@@ -208,7 +181,7 @@ export default {
     },
     async deleteAction() {
       try {
-        let rs = await this.$axios.delete(`booktype/index/${this.current.id}`);
+        let rs = await this.$axios.delete(`subject/index/${this.current.id}`);
         let index = this.items.indexOf(this.current);
         this.items.splice(index, 1);
         this.$toast.success(rs.data.message);
@@ -220,4 +193,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>

@@ -6,46 +6,119 @@
           <CardBox
             avatarColor="primary"
             titleClass="primary--text"
-            icon="mdi-cart-plus"
-            :desc="$t('sell')"
-            title=""
-            to="admin/sell/add"
+            icon="mdi-human-male-male"
+            :desc="`${orders}`"
+            title="ຄູ-ອາຈານ"
+            to="admin/customer"
             fileSize=""
             color="grey lighten-4"
           ></CardBox>
         </v-col>
+
         <v-col>
           <CardBox
             avatarColor="primary"
             titleClass="primary--text"
-            icon="mdi-cart-outline"
-            :desc="$t('order_list')"
-            :title="`${orders}`"
-            to="admin/sell/order"
+            icon="mdi-book-open-page-variant"
+            :desc="`${orders}`"
+            title="ວິຊາ"
+            to="admin/subject"
             fileSize=""
             color="grey lighten-4"
             flat
           ></CardBox>
         </v-col>
+
         <v-col>
           <CardBox
             avatarColor="amber"
             titleClass="amber--text"
             icon="mdi-book"
-            :desc="$t('book')"
-            :title="`${books}`"
+            :desc="`${books}`"
+            title="ຫຼັກສູດ"
             to="admin/book"
             fileSize=""
             color="grey lighten-4"
             flat
           />
         </v-col>
+
         <v-col>
           <CardBox
-            :desc="$t('customer')"
-            :title="`${customers}`"
+            :desc="`${customers}`"
+            title="ຫ້ອງຮຽນ"
             to="admin/customer"
-            icon="mdi-account"
+            icon="mdi-google-classroom"
+            fileSize=""
+            color="grey lighten-4"
+            flat
+          />
+        </v-col>
+
+        <v-col>
+          <CardBox
+            avatarColor="amber"
+            titleClass="amber--text"
+            icon="mdi-home-city-outline"
+            :desc="`${books}`"
+            title="ຕຶກອາຄານ"
+            to="admin/book"
+            fileSize=""
+            color="grey lighten-4"
+            flat
+          />
+        </v-col>
+
+        <v-col>
+          <CardBox
+            avatarColor="amber"
+            titleClass="amber--text"
+            icon="mdi-google-classroom"
+            :desc="`${books}`"
+            title="ຫ້ອງສອນ"
+            to="admin/book"
+            fileSize=""
+            color="grey lighten-4"
+            flat
+          />
+        </v-col>
+
+        <v-col>
+          <CardBox
+            avatarColor="amber"
+            titleClass="amber--text"
+            icon="mdi-book-open-page-variant"
+            :desc="`${books}`"
+            title="ວິຊາສອນຂອງຄູ-ອາຈານ"
+            to="admin/book"
+            fileSize=""
+            color="grey lighten-4"
+            flat
+          />
+        </v-col>
+
+        <v-col>
+          <CardBox
+            avatarColor="amber"
+            titleClass="amber--text"
+            icon="mdi-book"
+            :desc="`${books}`"
+            title="ຫ້ອງສອນຂອງຄູ-ອາຈານ"
+            to="admin/book"
+            fileSize=""
+            color="grey lighten-4"
+            flat
+          />
+        </v-col>
+
+        <v-col>
+          <CardBox
+            avatarColor="amber"
+            titleClass="amber--text"
+            icon="mdi-track-light"
+            :desc="`${books}`"
+            title="ຕິດຕາມການຂຶ້ນຫ້ອງສອນຂອງຄູ-ອາຈານ"
+            to="admin/book"
             fileSize=""
             color="grey lighten-4"
             flat
@@ -61,49 +134,39 @@
 
       <v-row class="my-4">
         <v-col>
-          <v-layout wrap>
-            <h3 class="grey--text text--darken-3">{{ $t("last_order") }}</h3>
-            <v-spacer></v-spacer>
-            <v-btn icon to="/admin/porder">
-              <v-icon>mdi-arrow-right</v-icon>
-            </v-btn>
-          </v-layout>
-
-          <v-list class="pa-0">
-            <template v-for="(item, index) in recent_orders">
-              <v-list-item
-                :to="`/admin/sell/${item.id}`"
-                :key="index"
-                class="px-0"
-              >
-                <v-list-item-avatar size="48" color="grey lighten-3">
-                  <h3 class="title" color="grey">
-                    {{ item.first[0].toUpperCase() }}
-                  </h3>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ item.first }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                    ID: {{ item.id }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action>
-                  <small class="grey--text">
-                    {{ formatDate(item.sell_date) }}
-                  </small>
-                </v-list-item-action>
-              </v-list-item>
-            </template>
-          </v-list>
+          <v-card :loading="loading">
+            <v-card-title primary-title>
+              {{ $t("teacher_name") }}
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-data-table
+              :headers="headersTeacher"
+              :items="teachers"
+              hide-default-footer
+              loading="true"
+            >
+              <template v-slot:[`item.t_image`]="{ item }">
+                <div>
+                  <v-avatar size="36" color="grey" v-if="item.t_image">
+                    <v-img :src="path + item.t_image"></v-img>
+                  </v-avatar>
+                  <v-icon v-else class="mdi-36px">mdi-book</v-icon>
+                </div>
+              </template>
+              <template v-slot:[`item.price`]="{ item }">
+                <b>
+                  {{ formatNumber(item.price) }}
+                </b>
+              </template>
+            </v-data-table>
+          </v-card>
         </v-col>
-        <v-col>
+        <!-- <v-col>
           <v-card>
             <BarChart
               :data="dataChart"
               v-if="dataChart"
-              style="max-height:300px"
+              style="max-height: 300px"
               :options="chartOption"
             />
             <v-skeleton-loader
@@ -112,11 +175,11 @@
               v-if="loading"
             ></v-skeleton-loader>
           </v-card>
-        </v-col>
+        </v-col> -->
       </v-row>
 
       <v-row class="my-4">
-        <v-col>
+        <!-- <v-col>
           <v-card :loading="loading">
             <v-card-title primary-title>
               {{ $t("book_row_qty") }}
@@ -143,8 +206,8 @@
               </template>
             </v-data-table>
           </v-card>
-        </v-col>
-        <v-col>
+        </v-col> -->
+        <!-- <v-col>
           <v-card outlined>
             <v-card-title primary-title>
               {{ $t("book_type_sell") }}
@@ -154,7 +217,7 @@
                 :data="dataChartBook"
                 v-if="dataChartBook"
                 :options="chartOption2"
-                style="max-height:270px"
+                style="max-height: 270px"
               />
               <v-skeleton-loader
                 type="card-avatar, article"
@@ -163,7 +226,7 @@
               ></v-skeleton-loader>
             </v-card-text>
           </v-card>
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-container>
     <v-btn to="/admin/sell" color="primary" fab fixed bottom right>
@@ -180,7 +243,7 @@ import DoughnutChart from "~/components/chart/DoughnutChart.js";
 import LineChart from "~/components/chart/LineChart.js";
 import chartOption from "~/mixins/chartOption";
 import color from "~/helper/colors";
-import format from '~/mixins/format'
+import format from "~/mixins/format";
 export default {
   layout: "admin",
   middleware: "user",
@@ -191,11 +254,12 @@ export default {
     DoughnutChart,
     LineChart,
   },
-  mixins: [chartOption,format],
+  mixins: [chartOption, format],
   data() {
     return {
       path: process.env.BASE_URL,
       bookItems: [],
+      teachers: [],
       users: 0,
       books: 0,
       orders: 0,
@@ -232,6 +296,36 @@ export default {
           value: "qty",
         },
       ],
+      headersTeacher: [
+        {
+          text: this.$t("image"),
+          value: "t_image",
+        },
+        {
+          text: this.$t("ລະຫັດພະນັກງານ"),
+          value: "t_id",
+        },
+        {
+          text: this.$t("ເພດ"),
+          value: "t_gender",
+        },
+        {
+          text: this.$t("ຊື່"),
+          value: "t_firstname",
+        },
+        {
+          text: this.$t("ນາມສະກຸນ"),
+          value: "t_lastname",
+        },
+        {
+          text: this.$t("ລະດັບການສຶກສາ"),
+          value: "t_graduate",
+        },
+        {
+          text: this.$t("ເວລາເພີ່ມ"),
+          value: "created_at",
+        },
+      ],
     };
   },
   mounted() {
@@ -247,6 +341,7 @@ export default {
             limit: 6,
           },
         });
+        let teacher = await this.$axios.get("teacher");
 
         this.recent_orders = rs.data.recent_orders;
         this.bookItems = book.data.books;
@@ -254,6 +349,7 @@ export default {
         this.orders = rs.data.orders;
         this.users = rs.data.users;
         this.books = rs.data.books;
+        this.teachers = teacher.data.teachers;
 
         let { sell_data_chart } = rs.data;
 

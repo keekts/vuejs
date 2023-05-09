@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-main>
-      <v-app-bar color="blue" dense dark height="70" fixed>
+      <v-app-bar color="#7e57c2" dense dark height="70" fixed>
         <v-container grid-list-xs>
           <v-layout row wrap justify-center align-center align-content-center>
             <nuxt-link to="/">
@@ -12,7 +12,7 @@
                 src="@/static/icon.png"
               />
             </nuxt-link>
-            <div class="ml-3" style="width:100%;max-width: 400px">
+            <div class="ml-3" style="width: 100%; max-width: 400px">
               <v-text-field
                 :placeholder="$t('search')"
                 dense
@@ -32,8 +32,8 @@
               </v-btn>
             </span>
             <span v-if="!$auth.loggedIn">
-              <v-btn to="/sign-up" text>{{$t("register")}}</v-btn>
-              <v-btn to="/sign-in" text>{{$t("login")}}</v-btn>
+              <v-btn to="/sign-up" text>{{ $t("register") }}</v-btn>
+              <v-btn to="/sign-in" text>{{ $t("login") }}</v-btn>
             </span>
             <span v-else>
               <v-btn to="/profile" text>{{ $t("profile") }}</v-btn>
@@ -59,9 +59,9 @@
       </div>
     </v-main>
 
-    <v-footer :fixed="fixed" app>
+    <!-- <v-footer :fixed="fixed" app>
       <span>&copy; 2021</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
